@@ -4,7 +4,7 @@ def initialize_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-i1", "--rows",
-                        help="Numbers of rows of the board",
+                        help="Number of rows of the board",
                         type=int,
                         default=10)
 
@@ -17,7 +17,7 @@ def initialize_parser():
     parser.add_argument("-i3", "--ships",
                         help="The number of ships to play with",
                         type=int,
-                        default=5)
+                        default=2)
 
     parser.add_argument("-i4", "--turns",
                         help="The number of turns a game should last",
@@ -25,3 +25,4 @@ def initialize_parser():
                         default=50)
 
     return parser.parse_args()
+
