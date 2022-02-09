@@ -13,6 +13,7 @@ def initialize_parser():
                         type=int,
                         default=10)
 
+    # TODO: Add an argument for every type of ship (Battleship(size 5), Cruiser(size 4), Submarine(3), Destroyer(2))
     parser.add_argument("-i3", "--ships",
                         help="The number of ships to play with",
                         type=int,

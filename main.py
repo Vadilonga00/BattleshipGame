@@ -1,6 +1,6 @@
-import parser
+import inputs
 
-args = parser.initialize_parser()
+args = inputs.initialize_parser()
 
 # Variables
 row_size = args.rows
