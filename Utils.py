@@ -9,7 +9,7 @@ import inputs
 
 class Ship:
     def __init__(self, size, orientation, start_row, start_col):
-        if size <= 5 and size >= 1:
+        if size >= 1 and size <= 5:
             self.size = size
         else: raise ValueError("Value must be an integer between 1 and 5")
 
@@ -17,20 +17,35 @@ class Ship:
             self.orientation = orientation
         else:
             raise ValueError("Value must be 'horizontal' or 'vertical'.")
+
             
 
 def create_board(args):
     board = [[0] * args.columns for x in range(args.rows)]
     counter = 0
-    ships_array=[]
+    ships_array = []
     while counter < args.ships:    
         start_row = int(input('Insert row:'))
         start_col = int(input('Insert column:'))
         orientation = input('Insert orientation:')
         size = int(input('Insert size:'))
-        ship = Ship(size, orientation,start_row,start_col)
+        ship = Ship(size, orientation, start_row, start_col)
+        if (start_row in range(args.rows+1) and start_col in range(args.columns+1)):
+            if orientation == 'horizontal':
+                for i in range(start_col-1,start_col +size -2):
+                    if board[start_row-1][i] == 1:
+                        raise ValueError("Error! There is already another ship here")
+                    if board[start_row][i] == 1 or board[start_row-2][i] == 1:
+                        raise ValueError("Error! There is already another ship here")
+                    if start_col != 1:
+                        if board[start_row-1][start_col-2] == 1:
+                            raise ValueError("Error! You are adjacent to another ship")
+                    if start_col+size-2 != args.columns-1:
+                        if board[start_row-1][start_col + size -1 ] == 1:
+                            raise ValueError("Error! You are adjacent to another ship")
+                    board[start_row-1][i]=1
+                counter +=1
         ships_array.append(ship)
-        counter += 1
     print('passa computer al giocatore successivo e premi invio')
     
 
