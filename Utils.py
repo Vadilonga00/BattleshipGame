@@ -4,7 +4,7 @@ Created on Wed Feb  9 23:05:52 2022
 
 @author: carpy
 """
-
+import warnings
 
 class Ship:
     def __init__(self, size, orientation, start_row, start_col):
@@ -29,15 +29,22 @@ def create_board(args):
         orientation = input('Insert orientation:')
         size = int(input('Insert size:'))
         ship = Ship(size, orientation, start_row, start_col)
+        error = True
         if (start_row in range(args.rows+1) and start_col in range(args.columns+1)):
             if orientation == 'horizontal':
-                horizontal_ship_restraints(args, board, start_row, start_col, orientation, size)
-                counter += 1
+                horizontal_ship_restraints(args, board, start_row, start_col, orientation, size,error)
+                if not error:
+                    counter += 1
+                else:
+                    print("try again")
             if orientation == 'vertical':
-                vertical_ship_restraints(args, board, start_row, start_col, orientation, size)
-                counter += 1
+                vertical_ship_restraints(args, board, start_row, start_col, orientation, size,error)
+                if not error:
+                    counter += 1
+                else:
+                    print("try again")
         else:
-            raise ValueError('Error! Start point is out of board')
+            warnings.warn('Error! Start point is out of board')
         ships_array.append(ship)
         print_board(board,args)
     print('Pass the computer to the next player')
@@ -64,50 +71,52 @@ def print_board(game_board,args):
     print(str(r + 1) + " " + " ".join(str(c) for c in game_board[r]))
   print()
 
-def horizontal_ship_restraints(args, board, start_row, start_col, orientation, size):
+def horizontal_ship_restraints(args, board, start_row, start_col, orientation, size,error):
     if start_col + size - 1 <= args.columns:
         for i in range(start_col - 1, start_col + size - 1):
             if board[start_row - 1][i] == 1:
-                raise ValueError("Error! There is already another ship here")
+                warnings.warn("Error! There is already another ship here")
             if start_row == 1:
                 if board[start_row][i] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_row == args.rows:
                 if board[start_row-2][i] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_row > 1 and start_row < args.rows:
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_col != 1:
                 if board[start_row - 1][start_col - 2] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_col + size - 2 != args.columns - 1:
                 if board[start_row - 1][start_col + size - 1] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             board[start_row - 1][i] = 1
+        error = False
     else:
-        raise ValueError('Error! Ship is out of board')
+        warnings.warn('Error! Ship is out of board')
 
-def vertical_ship_restraints(args, board, start_row, start_col, orientation, size):
+def vertical_ship_restraints(args, board, start_row, start_col, orientation, size,error):
     if start_row + size - 1 <= args.rows:
         for i in range(start_row - 1, start_row + size - 1):
             if board[i][start_col - 1] == 1:
-                raise ValueError("Error! There is already another ship here")
+                warnings.warn("Error! There is already another ship here")
             if start_col == 1:
                 if board[i][start_col] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_row == args.rows:
                 if board[i][start_col-2] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_col > 1 and start_col < args.columns:
                 if board[i][start_col] == 1 or board[i][start_col-2] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_row != 1:
                 if board[start_row - 2][start_col - 1] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             if start_row + size - 2 != args.rows - 1:
                 if board[start_row + size - 1][start_col - 1] == 1:
-                    raise ValueError("Error! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
             board[i][start_col - 1] = 1
+        error = False
     else:
-        raise ValueError('Error! Ship is out of board')
+        warnings.warn('Error! Ship is out of board')
