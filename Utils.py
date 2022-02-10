@@ -4,7 +4,6 @@ Created on Wed Feb  9 23:05:52 2022
 
 @author: carpy
 """
-import inputs
 
 
 class Ship:
@@ -32,20 +31,37 @@ def create_board(args):
         ship = Ship(size, orientation, start_row, start_col)
         if (start_row in range(args.rows+1) and start_col in range(args.columns+1)):
             if orientation == 'horizontal':
-                for i in range(start_col-1,start_col +size -2):
-                    if board[start_row-1][i] == 1:
-                        raise ValueError("Error! There is already another ship here")
-                    if board[start_row][i] == 1 or board[start_row-2][i] == 1:
-                        raise ValueError("Error! There is already another ship here")
-                    if start_col != 1:
-                        if board[start_row-1][start_col-2] == 1:
+                if start_col + size -1 <= args.columns:
+                    for i in range(start_col-1,start_col +size -1):
+                        if board[start_row-1][i] == 1:
+                            raise ValueError("Error! There is already another ship here")
+                        if board[start_row][i] == 1 or board[start_row-2][i] == 1:
                             raise ValueError("Error! You are adjacent to another ship")
-                    if start_col+size-2 != args.columns-1:
-                        if board[start_row-1][start_col + size -1 ] == 1:
-                            raise ValueError("Error! You are adjacent to another ship")
-                    board[start_row-1][i]=1
-                counter +=1
+                        if start_col != 1:
+                            if board[start_row-1][start_col-2] == 1:
+                                raise ValueError("Error! You are adjacent to another ship")
+                        if start_col+size-2 != args.columns-1:
+                            if board[start_row-1][start_col + size -1 ] == 1:
+                                raise ValueError("Error! You are adjacent to another ship")
+                        board[start_row-1][i]=1
+                    counter +=1
+            if orientation == 'vertical':
+                if start_row + size - 1 <= args.rows:
+                    for i in range(start_row-1,start_row +size -1):
+                        if board[i][start_col-1] == 1:
+                            raise ValueError("Error! There is already another ship here")
+                        if board[i][start_col] == 1 or board[i][start_col-2] == 1:
+                            raise ValueError("You are adjacent to another ship")
+                        if start_row != 1:
+                            if board[start_row-2][start_col-1] == 1:
+                                raise ValueError("Error! You are adjacent to another ship")
+                        if start_row+size-2 != args.rows-1:
+                            if board[start_row+size-1][start_col -1 ] == 1:
+                                raise ValueError("Error! You are adjacent to another ship")
+                        board[i][start_col-1]=1
+                    counter +=1
         ships_array.append(ship)
+        print_board(board,args)
     print('passa computer al giocatore successivo e premi invio')
     
 
@@ -64,8 +80,8 @@ def gameplay(args,ship_list):
         if col_guess > args.columns:
             print(f'That is not in the boundaries of the ocean! Try a coordinate between 1 and {args.columns}')
         
-def print_board(board,args):
+def print_board(game_board,args):
   print("\n  " + " ".join(str(x) for x in range(1, args.columns + 1)))
   for r in range(args.rows):
-    print(str(r + 1) + " " + " ".join(str(c) for c in board[r]))
+    print(str(r + 1) + " " + " ".join(str(c) for c in game_board[r]))
   print()
