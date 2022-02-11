@@ -61,24 +61,24 @@ def create_board(args, type_list):
                 continue
 
             if orientation == 'horizontal':
-                error = check_horizontal_ship_positioning(args, board, start_row, start_col, i)
+                error, coordinates = check_horizontal_ship_positioning(args, board, start_row, start_col, i)
                 if not error:
                     successful_insertion = True
             else:
-                error = check_vertical_ship_positioning(args, board, start_row, start_col, i)
+                error, coordinates = check_vertical_ship_positioning(args, board, start_row, start_col, i)
                 if not error:
                     successful_insertion = True
             print_board(board, args)
-        #Todo: successfully added ships must be added to the list of ships
-        # if i == 5:
-        #     ship = ship_types.Carrier(orientation, start_row, start_col)
-        # elif i == 4:
-        #     ship = ship_types.Battleship(orientation, start_row, start_col)
-        # elif i == 3:
-        #     ship = ship_types.Submarine(orientation, start_row, start_col)
-        # elif i == 2:
-        #     ship = ship_types.Destroyer(orientation, start_row, start_col)
-        # ship_list.append(ship)
+
+        if i == 5:
+             ship = ship_types.Ship(i, orientation, start_row, start_col,coordinates)
+        elif i == 4:
+             ship = ship_types.Ship(i, orientation, start_row, start_col,coordinates)
+        elif i == 3:
+             ship = ship_types.Ship(i, orientation, start_row, start_col,coordinates)
+        elif i == 2:
+             ship = ship_types.Ship(i, orientation, start_row, start_col,coordinates)
+        ship_list.append(ship)
 
 
 def gameplay(args, ship_list):
@@ -134,11 +134,13 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                     error = True
             i = i+1
         if error == False:
+            coordinates = []
             for i in range(start_col - 1, start_col + size - 1):
                 board[start_row-1][i]= 1
+                coordinates.append([start_row-1,i])
     else:
         warnings.warn('Error! Ship is out of board')
-    return error
+    return error, coordinates
 
 
 def check_vertical_ship_positioning(args, board, start_row, start_col, size):
@@ -171,9 +173,10 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
                     error = True
             i = i+1
         if error == False:
+            coordinates = []
             for i in range(start_row-1,start_row+size-1):
                 board[i][start_col-1] = 1
-
+                coordinates.append([i,start_col-1])
     else:
         warnings.warn('Error! Ship is out of board')
-    return error
+    return error, coordinates
