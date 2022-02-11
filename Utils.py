@@ -1,4 +1,7 @@
 import warnings
+
+import numpy
+
 import ship_types
 
 
@@ -102,68 +105,75 @@ def print_board(game_board, args):
 
 
 def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
-    error = True
+    error = False
     if start_col + size - 1 <= args.columns:
-        for i in range(start_col - 1, start_col + size - 1):
+        i = start_col-1
+        while i < start_row+size and error == False:
             if board[start_row - 1][i] == 1:
                 warnings.warn("Error! There is already another ship here")
-                break
+                error = True
             if start_row == 1:
                 if board[start_row][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_row == args.rows:
                 if board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_row > 1 and start_row < args.rows:
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_col != 1:
                 if board[start_row - 1][start_col - 2] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_col + size - 2 != args.columns - 1:
                 if board[start_row - 1][start_col + size - 1] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
-            board[start_row - 1][i] = 1
-        error = False
+                    error = True
+            i = i+1
+        if error == False:
+            for i in range(start_col - 1, start_col + size - 1):
+                board[start_row-1][i]= 1
     else:
         warnings.warn('Error! Ship is out of board')
     return error
 
 
 def check_vertical_ship_positioning(args, board, start_row, start_col, size):
-    error = True
+    error = False
     if start_row + size - 1 <= args.rows:
-        for i in range(start_row - 1, start_row + size - 1):
+        i = start_row-1
+        while i < start_row + size and error == False:
             if board[i][start_col - 1] == 1:
                 warnings.warn("Error! There is already another ship here")
-                break
+                error = True
             if start_col == 1:
                 if board[i][start_col] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
-            if start_row == args.rows:
+                    error = True
+            if start_col == args.columns:
                 if board[i][start_col - 2] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_col > 1 and start_col < args.columns:
                 if board[i][start_col] == 1 or board[i][start_col - 2] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_row != 1:
                 if board[start_row - 2][start_col - 1] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
+                    error = True
             if start_row + size - 2 != args.rows - 1:
                 if board[start_row + size - 1][start_col - 1] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
-                    break
-            board[i][start_col - 1] = 1
-        error = False
+                    error = True
+            i = i+1
+        if error == False:
+            for i in range(start_row-1,start_row+size-1):
+                board[i][start_col-1] = 1
+
     else:
         warnings.warn('Error! Ship is out of board')
     return error
