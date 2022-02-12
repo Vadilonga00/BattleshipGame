@@ -10,8 +10,8 @@ def create_board(args, type_list):
         successful_insertion = False
 
         while not successful_insertion:
-            start_row = int(input(f'\nInsert row. Integer from 1 to {args.rows}: '))
-            start_col = int(input(f'\nInsert column. Integer from 1 to {args.columns}: '))
+            start_row = int(input(f'\nInsert row. An integer from 1 to {args.rows}: '))
+            start_col = int(input(f'\nInsert column. An integer from 1 to {args.columns}: '))
             if not Utils.check_start_point(args, start_row, start_col):
                 print('\nError! The given starting point is not valid. Try again')
                 continue
