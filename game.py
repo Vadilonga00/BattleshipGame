@@ -1,19 +1,84 @@
-# This file contains the logic and methods for the game execution
-import game_board
+from __future__ import annotations
+from abc import ABC, abstractmethod
+
+class Context:
+    """
+    The Context defines the interface of interest to clients. It also maintains
+    a reference to an instance of a State subclass, which represents the current
+    state of the Context.
+    """
+
+    _state = None
+    """
+    A reference to the current state of the Context.
+    """
+
+    def __init__(self, state: State) -> None:
+        self.transition_to(state)
+
+    def transition_to(self, state: State):
+        """
+        The Context allows changing the State object at runtime.
+        """
+
+        print(f"{type(state).__name__}'s turn")
+        self._state = state
+        self._state.context = self
+
+    """
+    The Context delegates part of its behavior to the current State object.
+    """
+
+    def choose_and_shoot(self,ship_list):
+        self._state.shoot(ship_list)
 
 
-# This method is a first implementation of a game turn
-def gameplay(args, ship_list):
-    board = [[0] * args.columns for x in range(args.rows)]
-    for turn in range(args.turns):
-        game_board.print_board(board, args)
-        print("Turn:", turn + 1, "of", args.turns)
-        print("Ships left:", len(ship_list))
+class State(ABC):
+    """
+    The base State class declares methods that all Concrete State should
+    implement and also provides a backreference to the Context object,
+    associated with the State. This backreference can be used by States to
+    transition the Context to another State.
+    """
 
+    @property
+    def context(self) -> Context:
+        return self._context
+
+    @context.setter
+    def context(self, context: Context) -> None:
+        self._context = context
+
+    @abstractmethod
+    def shoot(self,ship_list) -> None:
+        pass
+
+
+"""
+Concrete States implement various behaviors, associated with a state of the
+Context.
+"""
+
+
+class Player1(State):
+    def shoot(self,ship_list):
         row_guess = int(input("guess_row:\n"))
-        if row_guess > args.rows:
-            print(f'That is not in the boundaries of the ocean! Try a coordinate between 1 and {args.rows}')
-
         col_guess = int(input("guess_colum:\n"))
-        if col_guess > args.columns:
-            print(f'That is not in the boundaries of the ocean! Try a coordinate between 1 and {args.columns}')
+        for i in ship_list[1][:]:
+            if [row_guess,col_guess] in i.coordinates:
+                print('Colpito, spara di nuovo!')
+                Context(Player1()).choose_and_shoot(ship_list)
+        self.context.transition_to(Player2())
+
+
+class Player2(State):
+    def shoot(self,ship_list):
+        row_guess = int(input("guess_row:\n"))
+        col_guess = int(input("guess_colum:\n"))
+        for i in ship_list[0][:]:
+            if [row_guess,col_guess] in i.coordinates:
+                print('Colpito, spara di nuovo!')
+                Context(Player2()).choose_and_shoot(ship_list)
+        self.context.transition_to(Player1())
+
+
