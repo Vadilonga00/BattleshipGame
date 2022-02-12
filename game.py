@@ -1,5 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+import ship_types
 
 class Context:
     """
@@ -63,22 +64,34 @@ Context.
 class Player1(State):
     def shoot(self,ship_list):
         row_guess = int(input("guess_row:\n"))
-        col_guess = int(input("guess_colum:\n"))
+        col_guess = int(input("guess_column:\n"))
         for i in ship_list[1][:]:
             if [row_guess,col_guess] in i.coordinates:
-                print('Colpito, spara di nuovo!')
+                i.coordinates.remove([row_guess,col_guess])
+                i.hits = i.hits + 1
+                if ship_types.Ship.is_sunk(i):
+                    print('Affondato, Spara di nuovo!')
+                else:
+                    print('Colpito, spara di nuovo!')
                 Context(Player1()).choose_and_shoot(ship_list)
+        print('Mancato')
         self.context.transition_to(Player2())
 
 
 class Player2(State):
     def shoot(self,ship_list):
         row_guess = int(input("guess_row:\n"))
-        col_guess = int(input("guess_colum:\n"))
+        col_guess = int(input("guess_column:\n"))
         for i in ship_list[0][:]:
             if [row_guess,col_guess] in i.coordinates:
-                print('Colpito, spara di nuovo!')
+                i.coordinates.remove([row_guess, col_guess])
+                i.hits = i.hits+1
+                if ship_types.Ship.is_sunk(i):
+                    print('Affondato, Spara di nuovo!')
+                else:
+                    print('Colpito, spara di nuovo!')
                 Context(Player2()).choose_and_shoot(ship_list)
+        print('Mancato')
         self.context.transition_to(Player1())
 
 

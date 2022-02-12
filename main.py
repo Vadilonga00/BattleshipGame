@@ -14,8 +14,8 @@ board_player2, ship_list2 = game_board.create_board(args, type_list)
 ship_list=[]
 ship_list.append(ship_list1)
 ship_list.append(ship_list2)
-context = game.Context(game.Player1())
-for i in range(args.turns):#Player1 starts the game
+context = game.Context(game.Player1())#Player1 starts the game
+for i in range(args.turns):
     context.choose_and_shoot(ship_list)
 
 #Todo: gameplay to be fixed
