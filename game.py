@@ -1,6 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 import ship_types
+import sys
 
 class Context:
     """
@@ -65,12 +66,22 @@ class Player1(State):
     def shoot(self,ship_list):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
-        for i in ship_list[1][:]:
+        for i in ship_list[1]:
             if [row_guess,col_guess] in i.coordinates:
                 i.coordinates.remove([row_guess,col_guess])
                 i.hits = i.hits + 1
                 if ship_types.Ship.is_sunk(i):
-                    print('Affondato, Spara di nuovo!')
+                    j = 0
+                    trovato = False
+                    while j < len(ship_list[1]) and trovato == False:
+                        if not(ship_types.Ship.is_sunk(ship_list[1][j])):
+                            trovato = True
+                        j = j + 1
+                    if trovato == True:
+                        print('Affondato, Spara di nuovo!')
+                    else:
+                        print('Player1 wins the game')
+                        sys.exit()
                 else:
                     print('Colpito, spara di nuovo!')
                 Context(Player1()).choose_and_shoot(ship_list)
@@ -82,12 +93,22 @@ class Player2(State):
     def shoot(self,ship_list):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
-        for i in ship_list[0][:]:
+        for i in ship_list[0]:
             if [row_guess,col_guess] in i.coordinates:
                 i.coordinates.remove([row_guess, col_guess])
                 i.hits = i.hits+1
                 if ship_types.Ship.is_sunk(i):
-                    print('Affondato, Spara di nuovo!')
+                    j = 0
+                    trovato = False
+                    while j < len(ship_list[1]) and trovato == False:
+                        if not (ship_types.Ship.is_sunk(ship_list[0][j])):
+                            trovato = True
+                        j=j+1
+                    if trovato == True:
+                        print('Affondato, Spara di nuovo!')
+                    else:
+                        print('Player1 wins the game')
+                        sys.exit()
                 else:
                     print('Colpito, spara di nuovo!')
                 Context(Player2()).choose_and_shoot(ship_list)
