@@ -41,11 +41,11 @@ def create_board(args, type_list):
         if i == 5:
             ship = ship_types.Carrier(orientation, start_row, start_col, coordinates)
         elif i == 4:
-            ship = ship_types.Battleship(i, orientation, start_row, start_col, coordinates)
+            ship = ship_types.Battleship(orientation, start_row, start_col, coordinates)
         elif i == 3:
-            ship = ship_types.Submarine(i, orientation, start_row, start_col, coordinates)
+            ship = ship_types.Submarine(orientation, start_row, start_col, coordinates)
         elif i == 2:
-            ship = ship_types.Destroyer(i, orientation, start_row, start_col, coordinates)
+            ship = ship_types.Destroyer(orientation, start_row, start_col, coordinates)
         ship_list.append(ship)
     return board, ship_list
 
