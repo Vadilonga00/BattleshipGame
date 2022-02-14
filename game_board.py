@@ -39,7 +39,7 @@ def create_board(args, type_list):
             print_board(board, args)
 
         if i == 5:
-            ship = ship_types.Carrier(i, orientation, start_row, start_col, coordinates)
+            ship = ship_types.Carrier(orientation, start_row, start_col, coordinates)
         elif i == 4:
             ship = ship_types.Battleship(i, orientation, start_row, start_col, coordinates)
         elif i == 3:
@@ -75,27 +75,27 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
         i = start_col - 1
         while i < start_row + size and not error:
             if board[start_row - 1][i] == 1:
-                warnings.warn("\nError! There is already another ship here")
+                warnings.warn("Error! There is already another ship here")
                 error = True
             if start_row == 1:
                 if board[start_row][i] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
             if start_row == args.rows:
                 if board[start_row - 2][i] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
             if start_row > 1 and start_row < args.rows:
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
             if start_col != 1:
                 if board[start_row - 1][start_col - 2] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
             if start_col + size - 2 != args.columns - 1:
                 if board[start_row - 1][start_col + size - 1] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
             i = i + 1
         if not error:
@@ -104,7 +104,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                 board[start_row - 1][i] = 1
                 coordinates.append([start_row, i+1])
     else:
-        warnings.warn("\nError! Ship is out of board")
+        warnings.warn("Error! Ship is out of board")
     return error, coordinates
 
 

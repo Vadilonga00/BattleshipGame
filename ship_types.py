@@ -30,26 +30,22 @@ class Ship:
             return False
 
 
-# All the subclasses need only a default size and the coordinates occupied
+# All the subclasses need only a default size
 class Carrier(Ship):
-    def __init__(self, size, orientation, start_row, start_col, coordinates):
-        self.size = 5
-        super().__init__(size, orientation, start_row, start_col, coordinates)
+    def __init__(self, orientation, start_row, start_col, coordinates):
+        super().__init__(5, orientation, start_row, start_col, coordinates)
 
 
 class Battleship(Ship):
-    def __init__(self, size, orientation, start_row, start_col, coordinates):
-        self.size = 4
-        super().__init__(size, orientation, start_row, start_col, coordinates)
+    def __init__(self, orientation, start_row, start_col, coordinates):
+        super().__init__(4, orientation, start_row, start_col, coordinates)
 
 
 class Submarine(Ship):
-    def __init__(self, size, orientation, start_row, start_col, coordinates):
-        self.size = 3
-        super().__init__(size, orientation, start_row, start_col, coordinates)
+    def __init__(self, orientation, start_row, start_col, coordinates):
+        super().__init__(3, orientation, start_row, start_col, coordinates)
 
 
 class Destroyer(Ship):
-    def __init__(self, size, orientation, start_row, start_col, coordinates):
-        self.size = size
-        super().__init__(size, orientation, start_row, start_col, coordinates)
+    def __init__(self, orientation, start_row, start_col, coordinates):
+        super().__init__(2, orientation, start_row, start_col, coordinates)
