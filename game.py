@@ -1,7 +1,10 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+
+import Utils
 import ship_types
 import sys
+
 
 class Context:
     """
@@ -31,7 +34,7 @@ class Context:
     The Context delegates part of its behavior to the current State object.
     """
 
-    def choose_and_shoot(self,ship_list):
+    def choose_and_shoot(self, ship_list):
         self._state.shoot(ship_list)
 
 
@@ -52,7 +55,7 @@ class State(ABC):
         self._context = context
 
     @abstractmethod
-    def shoot(self,ship_list) -> None:
+    def shoot(self, ship_list) -> None:
         pass
 
 
@@ -63,56 +66,42 @@ Context.
 
 
 class Player1(State):
-    def shoot(self,ship_list):
+    def shoot(self, ship_list):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
         for i in ship_list[1]:
-            if [row_guess,col_guess] in i.coordinates:
-                i.coordinates.remove([row_guess,col_guess])
+            if [row_guess, col_guess] in i.coordinates:
+                i.coordinates.remove([row_guess, col_guess])
                 i.hits = i.hits + 1
                 if ship_types.Ship.is_sunk(i):
-                    j = 0
-                    trovato = False
-                    while j < len(ship_list[1]) and trovato == False:
-                        if not(ship_types.Ship.is_sunk(ship_list[1][j])):
-                            trovato = True
-                        j = j + 1
-                    if trovato == True:
-                        print('Affondato, Spara di nuovo!')
-                    else:
+                    if Utils.is_win(ship_list[1]):
                         print('Player1 wins the game')
                         sys.exit()
+                    else:
+                        print('Colpito,e affondato spara di nuovo!')
                 else:
                     print('Colpito, spara di nuovo!')
                 Context(Player1()).choose_and_shoot(ship_list)
-        print('Mancato')
+        print('Mancato,passa il computer al Player2')
         self.context.transition_to(Player2())
 
 
 class Player2(State):
-    def shoot(self,ship_list):
+    def shoot(self, ship_list):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
         for i in ship_list[0]:
-            if [row_guess,col_guess] in i.coordinates:
+            if [row_guess, col_guess] in i.coordinates:
                 i.coordinates.remove([row_guess, col_guess])
-                i.hits = i.hits+1
+                i.hits = i.hits + 1
                 if ship_types.Ship.is_sunk(i):
-                    j = 0
-                    trovato = False
-                    while j < len(ship_list[1]) and trovato == False:
-                        if not (ship_types.Ship.is_sunk(ship_list[0][j])):
-                            trovato = True
-                        j=j+1
-                    if trovato == True:
-                        print('Affondato, Spara di nuovo!')
-                    else:
-                        print('Player1 wins the game')
+                    if Utils.is_win(ship_list[0]):
+                        print('Player2 wins the game')
                         sys.exit()
+                    else:
+                        print('Colpito,e affondato spara di nuovo!')
                 else:
                     print('Colpito, spara di nuovo!')
                 Context(Player2()).choose_and_shoot(ship_list)
-        print('Mancato')
+        print('Mancato,passa il computer al Player1')
         self.context.transition_to(Player1())
-
-
