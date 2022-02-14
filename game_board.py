@@ -70,12 +70,12 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                 :param start_col: the start point of the colum
                 :param size: the size of the ship
                 :return: a logical parameter that is True is there is an error and false
-                if not, and the coordinate of the ships
+                if not, and the coordinate of the ship (None if there is an error)
                 """
     error = False
     if start_col + size - 1 <= args.columns:
         i = start_col - 1
-        while i < start_col + size -1 and not error:
+        while i < start_col + size - 1 and not error:
             if board[start_row - 1][i] == 1:
                 warnings.warn("Error! There is already another ship here")
                 error = True
@@ -89,6 +89,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                 if board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
+                    continue
             if start_row > 1 and start_row < args.rows:
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
@@ -127,12 +128,12 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
             :param start_col: the start point of the colum
             :param size: the size of the ship
             :return: a logical parameter that is True is there is an error and false
-            if not, and the coordinate of the ships
+            if not, and the coordinate of the ship (None if there is an error)
             """
     error = False
     if start_row + size - 1 <= args.rows:
         i = start_row - 1
-        while i < start_row + size -1 and not error:
+        while i < start_row + size - 1 and not error:
             if board[i][start_col - 1] == 1:
                 warnings.warn("\nError! There is already another ship here")
                 error = True
@@ -170,7 +171,6 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
                 coordinates.append([i + 1, start_col])
             return error, coordinates
     else:
-        warnings.warn("\nError! Ship is out of board")
+        warnings.warn("Error! Ship is out of board")
         error = True
     return error, None
-
