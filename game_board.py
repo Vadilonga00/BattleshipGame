@@ -75,7 +75,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
     error = False
     if start_col + size - 1 <= args.columns:
         i = start_col - 1
-        while i < start_col + size and not error:
+        while i < start_col + size -1 and not error:
             if board[start_row - 1][i] == 1:
                 warnings.warn("Error! There is already another ship here")
                 error = True
@@ -132,7 +132,7 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
     error = False
     if start_row + size - 1 <= args.rows:
         i = start_row - 1
-        while i < start_row + size and not error:
+        while i < start_row + size -1 and not error:
             if board[i][start_col - 1] == 1:
                 warnings.warn("\nError! There is already another ship here")
                 error = True
@@ -173,3 +173,4 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
         warnings.warn("\nError! Ship is out of board")
         error = True
     return error, None
+
