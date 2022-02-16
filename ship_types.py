@@ -3,11 +3,13 @@
 
 # Base Ship class from which every other sub-Ship-class will inherit
 class Ship:
-    # The constructor which receives:
-    #    -size: The length of the ship
-    #    -orientation: The direction of the ship (horizontal or vertical)
-    #    -start-row/start-col: The starting point of the ship for the positioning
-    #    -coordinates: A list of the occupied coordinates by the ship
+    """The constructor which receives:
+         :param size: The length of the ship
+         :param orientation: The direction of the ship (horizontal or vertical)
+         :param start-row/start-col: The starting point of the ship for the positioning
+         :param coordinates: A list of the occupied coordinates by the ship
+         """
+
     def __init__(self, size, orientation, start_row, start_col, coordinates=None):
         self.size = size
         self.orientation = orientation
