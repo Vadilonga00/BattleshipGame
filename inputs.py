@@ -33,6 +33,11 @@ def initialize_parser():
                         type=int,
                         default=1)
 
+    parser.add_argument("-o", "--option",
+                        help="The variant of the game you want to play: 0 if I have to shoot again after I hit, 1 otherwise",
+                        type=int,
+                        default=0)
+
     parser.add_argument("-t", "--turns",
                         help="The number of turns a game should last",
                         type=int,

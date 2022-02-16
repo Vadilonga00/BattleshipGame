@@ -1,5 +1,4 @@
 # This file contains a collection of utilities methods for the other files and classes
-import ship_types
 
 
 def check_orientation(orientation):

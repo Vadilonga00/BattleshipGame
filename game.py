@@ -1,7 +1,7 @@
 import ship_types
 import sys
 
-def player1_shoot(ship_list):
+def player1_shoot(ship_list,option):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
         for i in ship_list:
@@ -14,14 +14,16 @@ def player1_shoot(ship_list):
                         sys.exit()
                     else:
                         print('Colpito e affondato, spara di nuovo!')
-                        player1_shoot(ship_list)
+                        if option == 0:
+                            player1_shoot(ship_list,option)
                 else:
                     print('Colpito, spara di nuovo!')
-                    player1_shoot(ship_list)
+                    if option == 0:
+                        player1_shoot(ship_list,option)
         print('Mancato,passa il computer al Player2')
 
 
-def player2_shoot(ship_list):
+def player2_shoot(ship_list,option):
         row_guess = int(input("guess_row:\n"))
         col_guess = int(input("guess_column:\n"))
         for i in ship_list:
@@ -34,10 +36,12 @@ def player2_shoot(ship_list):
                         sys.exit()
                     else:
                         print('Colpito e affondato, spara di nuovo!')
-                        player2_shoot(ship_list)
+                        if option == 0:
+                            player2_shoot(ship_list,option)
                 else:
                     print('Colpito, spara di nuovo!')
-                    player2_shoot(ship_list)
+                    if option == 0:
+                        player2_shoot(ship_list,option)
         print('Mancato,passa il computer al Player1')
 
 def is_win(ship_list):
