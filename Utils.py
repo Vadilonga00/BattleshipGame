@@ -2,6 +2,11 @@
 
 
 def check_orientation(orientation):
+    """
+         check if the orientation of the ship in the board is valid
+         :return: a logical parameter that is true if the orientation
+         is valid and false if not
+         """
     if orientation == 'horizontal' or orientation == 'vertical':
         return True
     else:
@@ -9,6 +14,13 @@ def check_orientation(orientation):
 
 
 def check_start_point(args, start_row, start_col):
+    """
+     check the starting point of the ship is valid
+     :param start_row: the start point of the row
+     :param start_col: the start point of the colum
+     :return: a logical parameter that is true if the start row and start colum are
+            included in the range
+     """
     if start_row <= args.rows and start_col <= args.columns:
         return True
     else:
@@ -16,6 +28,11 @@ def check_start_point(args, start_row, start_col):
 
 
 def create_ship_type_list(args):
+    """
+         create a list of ships types checking the inputs parameters
+         :param args: the desidered number of each ship type
+         :return: a list that contains an element for each ship based on his size
+         """
     type_list = []
     counter = 0
     while counter < args.carriers:

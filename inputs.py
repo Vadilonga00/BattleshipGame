@@ -24,12 +24,12 @@ def initialize_parser():
                         default=0)
 
     parser.add_argument("-s3", "--submarines",
-                        help="The number of Submarines of your fleet. The size of a Submarine is 5",
+                        help="The number of Submarines of your fleet. The size of a Submarine is 3",
                         type=int,
                         default=1)
 
     parser.add_argument("-s4", "--destroyers",
-                        help="The number of Destroyers of your fleet. The size of a Destroyer is 5",
+                        help="The number of Destroyers of your fleet. The size of a Destroyer is 2",
                         type=int,
                         default=1)
 
