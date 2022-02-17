@@ -38,10 +38,5 @@ def initialize_parser():
                         type=int,
                         default=0)
 
-    parser.add_argument("-t", "--turns",
-                        help="The number of turns a game should last",
-                        type=int,
-                        default=50)
-
     return parser.parse_args()
 
