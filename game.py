@@ -1,7 +1,7 @@
 import ship_types
 import sys
 import game_board
-
+import Utils
 def player1_shoot(ship_list,args,play_board1,play_board2):
     """
      a method that asks the player1 for the desired row or column
@@ -12,8 +12,7 @@ def player1_shoot(ship_list,args,play_board1,play_board2):
      :return: a message if player1 wins, shots or sunks
      """
     game_board.print_board(play_board2,args)
-    row_guess = int(input("guess_row:\n"))
-    col_guess = int(input("guess_column:\n"))
+    row_guess, col_guess = Utils.choose_and_check_strike_point()
     for i in ship_list:
         if [row_guess, col_guess] in i.coordinates:
             play_board2[row_guess-1][col_guess-1] = 'X'
@@ -53,8 +52,7 @@ def player2_shoot(ship_list,args,play_board1,play_board2):
         :return: a message if player2 wins, shots or sunks
         """
         game_board.print_board(play_board1, args)
-        row_guess = int(input("guess_row:\n"))
-        col_guess = int(input("guess_column:\n"))
+        row_guess, col_guess = Utils.choose_and_check_strike_point()
         for i in ship_list:
             if [row_guess, col_guess] in i.coordinates:
                 play_board1[row_guess - 1][col_guess - 1] = 'X'

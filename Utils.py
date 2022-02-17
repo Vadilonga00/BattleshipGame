@@ -54,4 +54,12 @@ def create_ship_type_list(args):
     return type_list
 
 
-
+def choose_and_check_strike_point():
+    while True:
+        try:
+            row_guess = int(input("guess_row:\n"))
+            col_guess = int(input("guess_column:\n"))
+            break
+        except:
+            print("Invalid input, please try again!")
+    return row_guess,col_guess
