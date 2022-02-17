@@ -1,84 +1,58 @@
-from __future__ import annotations
-from abc import ABC, abstractmethod
+import ship_types
+import sys
 
-class Context:
-    """
-    The Context defines the interface of interest to clients. It also maintains
-    a reference to an instance of a State subclass, which represents the current
-    state of the Context.
-    """
-
-    _state = None
-    """
-    A reference to the current state of the Context.
-    """
-
-    def __init__(self, state: State) -> None:
-        self.transition_to(state)
-
-    def transition_to(self, state: State):
-        """
-        The Context allows changing the State object at runtime.
-        """
-
-        print(f"{type(state).__name__}'s turn")
-        self._state = state
-        self._state.context = self
-
-    """
-    The Context delegates part of its behavior to the current State object.
-    """
-
-    def choose_and_shoot(self,ship_list):
-        self._state.shoot(ship_list)
-
-
-class State(ABC):
-    """
-    The base State class declares methods that all Concrete State should
-    implement and also provides a backreference to the Context object,
-    associated with the State. This backreference can be used by States to
-    transition the Context to another State.
-    """
-
-    @property
-    def context(self) -> Context:
-        return self._context
-
-    @context.setter
-    def context(self, context: Context) -> None:
-        self._context = context
-
-    @abstractmethod
-    def shoot(self,ship_list) -> None:
-        pass
-
-
-"""
-Concrete States implement various behaviors, associated with a state of the
-Context.
-"""
-
-
-class Player1(State):
-    def shoot(self,ship_list):
+def player1_shoot(ship_list,option):
         row_guess = int(input("guess_row:\n"))
-        col_guess = int(input("guess_colum:\n"))
-        for i in ship_list[1][:]:
-            if [row_guess,col_guess] in i.coordinates:
-                print('Colpito, spara di nuovo!')
-                Context(Player1()).choose_and_shoot(ship_list)
-        self.context.transition_to(Player2())
+        col_guess = int(input("guess_column:\n"))
+        for i in ship_list:
+            if [row_guess, col_guess] in i.coordinates:
+                i.coordinates.remove([row_guess, col_guess])
+                i.hits = i.hits + 1
+                if ship_types.Ship.is_sunk(i):
+                    if is_win(ship_list):
+                        print('Player1 wins the game')
+                        sys.exit()
+                    else:
+                        print('Colpito e affondato, spara di nuovo!')
+                        if option == 0:
+                            player1_shoot(ship_list,option)
+                else:
+                    print('Colpito, spara di nuovo!')
+                    if option == 0:
+                        player1_shoot(ship_list,option)
+        print('Mancato,passa il computer al Player2')
 
 
-class Player2(State):
-    def shoot(self,ship_list):
+def player2_shoot(ship_list,option):
         row_guess = int(input("guess_row:\n"))
-        col_guess = int(input("guess_colum:\n"))
-        for i in ship_list[0][:]:
-            if [row_guess,col_guess] in i.coordinates:
-                print('Colpito, spara di nuovo!')
-                Context(Player2()).choose_and_shoot(ship_list)
-        self.context.transition_to(Player1())
+        col_guess = int(input("guess_column:\n"))
+        for i in ship_list:
+            if [row_guess, col_guess] in i.coordinates:
+                i.coordinates.remove([row_guess, col_guess])
+                i.hits = i.hits + 1
+                if ship_types.Ship.is_sunk(i):
+                    if is_win(ship_list):
+                        print('Player2 wins the game')
+                        sys.exit()
+                    else:
+                        print('Colpito e affondato, spara di nuovo!')
+                        if option == 0:
+                            player2_shoot(ship_list,option)
+                else:
+                    print('Colpito, spara di nuovo!')
+                    if option == 0:
+                        player2_shoot(ship_list,option)
+        print('Mancato,passa il computer al Player1')
 
-
+def is_win(ship_list):
+    """
+    :param ship_list:the list of ships of the enemy player
+    :return: a logical value that returns true if the player won the game
+    """
+    j = 0
+    is_alive = False
+    while j < len(ship_list) and not is_alive:
+        if not (ship_types.Ship.is_sunk(ship_list[j])):
+            is_alive = True
+        j = j + 1
+    return not is_alive

@@ -24,14 +24,19 @@ def initialize_parser():
                         default=0)
 
     parser.add_argument("-s3", "--submarines",
-                        help="The number of Submarines of your fleet. The size of a Submarine is 5",
+                        help="The number of Submarines of your fleet. The size of a Submarine is 3",
                         type=int,
                         default=1)
 
     parser.add_argument("-s4", "--destroyers",
-                        help="The number of Destroyers of your fleet. The size of a Destroyer is 5",
+                        help="The number of Destroyers of your fleet. The size of a Destroyer is 2",
                         type=int,
                         default=1)
+
+    parser.add_argument("-o", "--option",
+                        help="The variant of the game you want to play: 0 if I have to shoot again after I hit, 1 otherwise",
+                        type=int,
+                        default=0)
 
     parser.add_argument("-t", "--turns",
                         help="The number of turns a game should last",

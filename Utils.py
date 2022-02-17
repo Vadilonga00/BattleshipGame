@@ -52,3 +52,6 @@ def create_ship_type_list(args):
         type_list.append(new)
         counter += 1
     return type_list
+
+
+
