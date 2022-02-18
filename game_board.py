@@ -6,6 +6,7 @@ import Utils
 def create_board(args, type_list):
     """
         create the board of the game with each ship
+        :param args: the inputs given by the user
         :param type_list: a list that contains the numbers of ships for each type
         :return: a game board and a list of each ship with its length,
         orientation, start row, start colum and coordinates
@@ -57,7 +58,10 @@ def create_board(args, type_list):
 def print_board(game_board, args):
     """
     print a game board with inputs parameters
-            """
+   :param game_board: the game board
+   :param args: the inputs given by the user
+   :return: the graphics of the board in the current state
+    """
     print("\n  " + " ".join(str(x) for x in range(1, args.columns + 1)))
     for r in range(args.rows):
         print(str(r + 1) + " " + " ".join(str(c) for c in game_board[r]))
@@ -68,7 +72,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
     """
                 check the horizontal position of the ship in the board
                 and return a message of warning if the position in not valid
-                :param args: The inputs given by the user, needed for the number of rows and columns of the board
+                :param args: The inputs given by the user
                 :param board: the game board
                 :param start_row: the start point of the row
                 :param start_col: the start point of the colum

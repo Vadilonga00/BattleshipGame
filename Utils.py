@@ -30,7 +30,7 @@ def check_start_point(args, start_row, start_col):
 def create_ship_type_list(args):
     """
          create a list of ships types checking the inputs parameters
-         :param args: the desidered number of each ship type
+         :param args: the inputs given by the user
          :return: a list that contains an element for each ship based on his size
          """
     type_list = []
@@ -54,7 +54,13 @@ def create_ship_type_list(args):
     return type_list
 
 
-def choose_and_check_strike_point(args,play_board):
+def choose_and_check_strike_point(args, play_board):
+    """
+    asks for a point to hit and checks the validity of the coordinates entered
+    :param args: The inputs given by the user
+    :param play_board:the game board
+    :return: hit row and column
+    """
     while True:
         try:
             row_guess = int(input("guess_row:\n"))
@@ -67,4 +73,4 @@ def choose_and_check_strike_point(args,play_board):
                 break
         except:
             print("Invalid input, please try again!")
-    return row_guess,col_guess
+    return row_guess, col_guess
