@@ -1,17 +1,18 @@
 import argparse
 
+
 def initialize_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-r", "--rows",
                         help="Number of rows of the board",
                         type=int,
-                        default=10)
+                        default=9)
 
     parser.add_argument("-c", "--columns",
                         help="Number of columns of the board",
                         type=int,
-                        default=10)
+                        default=9)
 
     parser.add_argument("-s1", "--carriers",
                         help="The number of Carriers of your fleet. The size of a Carrier is 5",
@@ -39,4 +40,3 @@ def initialize_parser():
                         default=0)
 
     return parser.parse_args()
-
