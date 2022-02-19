@@ -9,8 +9,9 @@ args = inputs.initialize_parser()
 root = tk.Tk()
 root.title('PlayBoard')
 
-play_board = board = [['-'] * args.columns for x in range(args.rows)]
-board[0][0] = 1
+
+type_list = Utils.create_ship_type_list(args)
+board, ship_list1 = game_board.create_board(args, type_list)
 
 
 def on_click(row_guess, col_guess, event):
@@ -19,7 +20,7 @@ def on_click(row_guess, col_guess, event):
     else:
         color = "blue"
     event.widget.config(bg=color)
-    board[row_guess-2][col_guess-2] = color
+    board[row_guess-1][col_guess-1] = color
 
 
 def gui_board(args):
