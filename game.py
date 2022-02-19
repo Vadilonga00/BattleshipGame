@@ -26,10 +26,10 @@ def player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2):
                     print('\nPlayer1 wins the game')
                     sys.exit()
                 else:
-                    print('\nHit and sunk a ship, shoot again!')
+                    print('\nHit and sunk a ship!')
                     Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
             else:
-                print('\nHit, shoot again!')
+                print('\nHit!')
                 Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
     print('\nMiss, pass the computer to Player2')
     play_board2[row_guess - 1][col_guess - 1] = 'O'
@@ -58,12 +58,12 @@ def player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2):
                     print('\nPlayer2 wins the game')
                     sys.exit()
                 else:
-                    print('\nHit and sunk a ship, shoot again!')
+                    print('\nHit and sunk a ship!')
                     Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
             else:
-                print('\nHit, shoot again!')
+                print('\nHit!')
                 Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
-    print('\nMiss, pass the computer to Player2')
+    print('\nMiss, pass the computer to Player1')
     play_board1[row_guess - 1][col_guess - 1] = 'O'
     player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
 

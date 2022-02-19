@@ -90,11 +90,15 @@ def game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
     """
     if player == 1:
         if args.option == 0:
+            print('Enter new point to attach!')
             game.player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
         else:
+            print('Pass the computer to Player2')
             game.player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
     else:
         if args.option == 0:
+            print('Enter new point to attach!')
             game.player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
         else:
+            print('Pass the computer to Player1')
             game.player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
