@@ -4,69 +4,54 @@ import game_board
 import Utils
 
 
-def player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2):
-    """
-     a method that asks the player1 for the desired row or column
-     then it checks if he's win,has shot or sunk
-     :param play_board1: Player1's game board
-     :param play_board2: Player2's game board
-     :param args: The inputs given by the user
-     :param ship_list1: Player1's ship list
-     :param ship_list2: Player2's ship list
-     :return: A message if player1 wins, hits or sunks a player2's ship or misses the shot
-     """
-    game_board.print_board(play_board2, args)
-    row_guess, col_guess = Utils.choose_and_check_strike_point(args, play_board2)
-    player = 1
-    for i in ship_list2:
+def player_shoot(ship_list, args, play_board, player, game_end):
+    hit = False
+    game_board.print_board(play_board, args)
+    row_guess, col_guess = Utils.choose_and_check_strike_point(args, play_board)
+    for i in ship_list:
         if ship_types.Ship.is_hit(i, row_guess, col_guess):
-            play_board2[row_guess - 1][col_guess - 1] = 'X'
+            hit = True
+            play_board[row_guess - 1][col_guess - 1] = 'X'
             if ship_types.Ship.is_sunk(i):
-                if is_win(ship_list2):
-                    print('\nPlayer1 wins the game')
-                    sys.exit()
+                if is_win(ship_list):
+                    print(f'\nPlayer {player} wins the game')
+                    game_end = True
                 else:
-                    print('\nHit and sunk a ship, shoot again!')
-                    Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
+                    print('\nHit and sunk a ship!')
             else:
-                print('\nHit, shoot again!')
-                Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
-    print('\nMiss, pass the computer to Player2')
-    play_board2[row_guess - 1][col_guess - 1] = 'O'
-    player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
+                print('\nHit!')
+    if not hit:
+        print('\nMiss!')
+        play_board[row_guess - 1][col_guess - 1] = 'O'
+    return hit, game_end, player
 
 
-def player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2):
-    """
-     A method that asks the player2 for the desired row or column
-     then it checks if he's win,has shot or sunk
-     :param play_board1: Player1's game board
-     :param play_board2: Player2's game board
-     :param args: The inputs given by the user
-     :param ship_list1: Player1's ship list
-     :param ship_list2: Player2's ship list
-     :return: A message if player2 wins, hits or sunks a player1's ship or misses the shot
-     """
-    player = 2
-    game_board.print_board(play_board1, args)
-    row_guess, col_guess = Utils.choose_and_check_strike_point(args, play_board1)
-    for i in ship_list1:
-        if ship_types.Ship.is_hit(i, row_guess, col_guess):
-            play_board1[row_guess - 1][col_guess - 1] = 'X'
-            if ship_types.Ship.is_sunk(i):
-                if is_win(ship_list1):
-                    print('\nPlayer2 wins the game')
-                    sys.exit()
-                else:
-                    print('\nHit and sunk a ship, shoot again!')
-                    Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
-            else:
-                print('\nHit, shoot again!')
-                Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
-    print('\nMiss, pass the computer to Player2')
-    play_board1[row_guess - 1][col_guess - 1] = 'O'
-    player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
+def start_game(ship_list1, ship_list2, args, play_board1, play_board2):
+    print("\n\n\nPlayer 1 will start the game!")
+    hit, game_end, player = player_shoot(ship_list2, args, play_board2, 1, game_end=False)
+    while not game_end:
+        hit, game_end, player = switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_board2, game_end)
+    sys.exit()
 
+
+def switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_board2, game_end):
+    if player == 1:
+        if hit and args.option == 0:
+            print('\nYou can shoot again!')
+            hit, game_end, player = player_shoot(ship_list2, args, play_board2, player, game_end)
+        else:
+            player = 2
+            print(f'\nPass the computer to Player {player}')
+            hit, game_end, player = player_shoot(ship_list1, args, play_board1, player, game_end)
+    else:
+        if hit and args.option == 0:
+            print('\nYou can shoot again!')
+            hit, game_end, player = player_shoot(ship_list1, args, play_board1, player, game_end)
+        else:
+            player = 1
+            print(f'\nPass the computer to Player {player}')
+            hit, game_end, player = player_shoot(ship_list2, args, play_board2, player, game_end)
+    return hit, game_end, player
 
 def is_win(ship_list):
     """
@@ -80,4 +65,3 @@ def is_win(ship_list):
             is_alive = True
         j = j + 1
     return not is_alive
-

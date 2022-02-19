@@ -24,17 +24,15 @@ def on_click(ship_list, row_guess, col_guess, event):
             color = "red"
             if ship_types.Ship.is_sunk(i):
                 if game.is_win(ship_list):
-                    print(f'\nPlayer {player} wins the game')
+                    print(f'\nPlayer {player} wins the game!!')
                     sys.exit()
                 else:
-                    print('\nHit and sunk a ship, shoot again!')
-                    #Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
+                    print('\nHit and sunk a ship!!')
             else:
-                print('\nHit, shoot again!')
-                #Utils.game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player)
-    if color != 'red':
+                print('\nHit!')
+    if color != "red":
         color = "blue"
-        print('\nMiss, pass the computer to Player2')
+        print('\nMiss!!')
     event.widget.config(bg=color)
     board[row_guess-1][col_guess-1] = color
 

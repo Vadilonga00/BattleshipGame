@@ -27,7 +27,7 @@ def initialize_parser():
     parser.add_argument("-s3", "--submarines",
                         help="The number of Submarines of your fleet. The size of a Submarine is 3",
                         type=int,
-                        default=2)
+                        default=0)
 
     parser.add_argument("-s4", "--destroyers",
                         help="The number of Destroyers of your fleet. The size of a Destroyer is 2",
