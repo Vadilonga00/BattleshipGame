@@ -53,6 +53,7 @@ def switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_b
             hit, game_end, player = player_shoot(ship_list2, args, play_board2, player, game_end)
     return hit, game_end, player
 
+  
 def is_win(ship_list):
     """
     :param ship_list:the list of ships of the enemy player

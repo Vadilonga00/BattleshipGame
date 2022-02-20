@@ -31,7 +31,7 @@ def check_start_point(args, start_row, start_col):
 def create_ship_type_list(args):
     """
          create a list of ships types checking the inputs parameters
-         :param args: the desidered number of each ship type
+         :param args: the desired number of each ship type
          :return: a list that contains an element for each ship based on his size
          """
     type_list = []
