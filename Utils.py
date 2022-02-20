@@ -31,7 +31,7 @@ def check_start_point(args, start_row, start_col):
 def create_ship_type_list(args):
     """
          create a list of ships types checking the inputs parameters
-         :param args: the desidered number of each ship type
+         :param args: the desired number of each ship type
          :return: a list that contains an element for each ship based on his size
          """
     type_list = []
@@ -75,30 +75,3 @@ def choose_and_check_strike_point(args, play_board):
         except ValueError:
             print("Invalid input, please try again!")
     return row_guess, col_guess
-
-
-def game_variant(ship_list1, ship_list2, args, play_board1, play_board2, player):
-    """
-    A method that decides which player has to shoot next
-    :param play_board1: Player1's game board
-    :param play_board2: Player2's game board
-    :param args: The inputs given by the user
-    :param ship_list1: Player1's ship list
-    :param ship_list2: Player2's ship list
-    :param player: 1 for Player1 and 2 for Player2
-    :return: None
-    """
-    if player == 1:
-        if args.option == 0:
-            print('Enter new point to attach!')
-            game.player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
-        else:
-            print('Pass the computer to Player2')
-            game.player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
-    else:
-        if args.option == 0:
-            print('Enter new point to attach!')
-            game.player2_shoot(ship_list1, ship_list2, args, play_board1, play_board2)
-        else:
-            print('Pass the computer to Player1')
-            game.player1_shoot(ship_list1, ship_list2, args, play_board1, play_board2)

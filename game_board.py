@@ -143,32 +143,32 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
         i = start_row - 1
         while i < start_row + size - 1 and not error:
             if board[i][start_col - 1] == 1:
-                warnings.warn("\nError! There is already another ship here")
+                warnings.warn("Error! There is already another ship here")
                 error = True
                 continue
             if start_col == 1:
                 if board[i][start_col] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_col == args.columns:
                 if board[i][start_col - 2] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_col > 1 and start_col < args.columns:
                 if board[i][start_col] == 1 or board[i][start_col - 2] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_row != 1:
                 if board[start_row - 2][start_col - 1] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_row + size - 2 != args.rows - 1:
                 if board[start_row + size - 1][start_col - 1] == 1:
-                    warnings.warn("\nError! You are adjacent to another ship")
+                    warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             i = i + 1
