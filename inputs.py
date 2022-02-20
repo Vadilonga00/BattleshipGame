@@ -35,8 +35,14 @@ def initialize_parser():
                         default=1)
 
     parser.add_argument("-o", "--option",
-                        help="The variant of the game you want to play: 0 if I have to shoot again after I hit, 1 otherwise",
+                        help="The variant of the game you want to play: 0 if after a Hit you can shoot again, 1 otherwise",
                         type=int,
                         default=0)
+
+    parser.add_argument("-g", "--graphics",
+                        help="If you want to play with graphical interface use 1. If not use 0 or don't call this parameter",
+                        type=int,
+                        default=0)
+
 
     return parser.parse_args()
