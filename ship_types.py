@@ -36,6 +36,10 @@ class Ship:
             return True
         return False
 
+    def check_hit(self, row_guess, col_guess):
+        if [row_guess, col_guess] in self.coordinates:
+            return True
+        return False
 
 # All the subclasses need only a default size
 class Carrier(Ship):
