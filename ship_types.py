@@ -24,19 +24,36 @@ class Ship:
 
     # This method checks if a ship is sunk
     def is_sunk(self):
+        """
+        This method checks if the ship is sunk
+        :return: A Boolean value: True if the ship is sunk, False otherwise
+        """
         if self.hits == self.size:
             return True
         else:
             return False
 
     def is_hit(self, row_guess, col_guess):
-        if [row_guess, col_guess] in self.coordinates:
+        """
+        This method verifies if the shot given is a hit. If it is, removes from the ship the coordinates of the hit and
+        increments the number of hits taken
+        :param row_guess: The row coordinate of the shot
+        :param col_guess: The column coordinate of the shot
+        :return: A Boolean value: True if the ship is hit, False otherwise
+        """
+        if self.check_hit(row_guess, col_guess):
             self.coordinates.remove([row_guess, col_guess])
             self.hits += 1
             return True
         return False
 
     def check_hit(self, row_guess, col_guess):
+        """
+        This method checks if the shot given is a hit
+        :param row_guess: The row coordinate of the shot
+        :param col_guess: The column coordinate of the shot
+        :return: A Boolean value: True if the ship is hit, False otherwise
+        """
         if [row_guess, col_guess] in self.coordinates:
             return True
         return False
