@@ -41,6 +41,7 @@ class Ship:
             return True
         return False
 
+
 # All the subclasses need only a default size
 class Carrier(Ship):
     def __init__(self, orientation, start_row, start_col, coordinates):
