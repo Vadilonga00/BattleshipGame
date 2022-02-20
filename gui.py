@@ -1,19 +1,20 @@
 import sys
 import tkinter as tk
 import tkinter.messagebox
-import Utils
 import game
-import game_board
-import inputs
 import ship_types
 
 FONT = ("Calibri", 10)
 
+#Icon created by: https://www.flaticon.com/free-icons/warship
 
 class GuiApp(tk.Tk):
 
-    def __init__(self, args, ships):
+    def __init__(self, args, ships1, ships2, board1, board2):
         tk.Tk.__init__(self)
+        tk.Tk.iconbitmap(self, default="img/battleship.ico")
+        tk.Tk.title(self, "BATTLESHIP GAME!!")
+
         tk.messagebox.showinfo('BATTLESHIPS GAME', 'Player 1 will start the game!! Click Ok to continue')
 
         container = tk.Frame(self)
@@ -23,7 +24,10 @@ class GuiApp(tk.Tk):
 
         self.frames = {}
         for F in (Player1Page, Player2Page):
-            frame = F(container, self, args, ships)
+            if F is Player1Page:
+                frame = F(container, self, args, ships2, board2)
+            else:
+                frame = F(container, self, args, ships1, board1)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
@@ -36,7 +40,7 @@ class GuiApp(tk.Tk):
 
 class Player1Page(tk.Frame):
 
-    def __init__(self, parent, controller, args, ships):
+    def __init__(self, parent, controller, args, ships, board):
         tk.Frame.__init__(self, parent)
         for i in range(1, args.rows + 1):
             for j in range(1, args.columns + 1):
@@ -45,15 +49,15 @@ class Player1Page(tk.Frame):
                 L.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
-                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_hit(args.option, ships, row_guess, col_guess, e, controller, 1))
+                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_hit(board, args.option, ships, row_guess, col_guess, e, controller, 1))
                         break
                     else:
-                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_miss(row_guess, col_guess, e, controller, 1))
+                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_miss(board, row_guess, col_guess, e, controller, 1))
 
 
 class Player2Page(tk.Frame):
 
-    def __init__(self, parent, controller, args, ships):
+    def __init__(self, parent, controller, args, ships, board):
         tk.Frame.__init__(self, parent)
         for i in range(1, args.rows + 1):
             for j in range(1, args.columns + 1):
@@ -62,13 +66,13 @@ class Player2Page(tk.Frame):
                 L.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
-                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_hit(args.option, ships, row_guess, col_guess, e, controller, 2))
+                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_hit(board, args.option, ships, row_guess, col_guess, e, controller, 2))
                         break
                     else:
-                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_miss(row_guess, col_guess, e, controller, 2))
+                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j: on_miss(board, row_guess, col_guess, e, controller, 2))
 
 
-def on_hit(option, ship_list, row_guess, col_guess, event, controller, player):
+def on_hit(board, option, ship_list, row_guess, col_guess, event, controller, player):
     color = "red"
     event.widget.config(bg=color)
     board[row_guess - 1][col_guess - 1] = color
@@ -89,10 +93,11 @@ def on_hit(option, ship_list, row_guess, col_guess, event, controller, player):
                     switch_frame(player, controller)
 
 
-def on_miss(row_guess, col_guess, event, controller, player):
+def on_miss(board, row_guess, col_guess, event, controller, player):
     color = "blue"
     event.widget.config(bg=color)
     board[row_guess - 1][col_guess - 1] = color
+    tk.messagebox.showinfo('MISS!!', 'You hit water. Better luck next time')
     switch_frame(player, controller)
 
 
@@ -103,11 +108,3 @@ def switch_frame(player, controller):
     else:
         controller.show_frame(Player1Page)
         tk.messagebox.showinfo('PLAYER 1 TURN', 'Pass the computer to Player 1')
-
-
-if __name__ == '__main__':
-    args = inputs.initialize_parser()
-    type_list = Utils.create_ship_type_list(args)
-    board, ships = game_board.create_board(args, type_list)
-    app = GuiApp(args, ships)
-    app.mainloop()
