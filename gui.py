@@ -3,9 +3,14 @@ import tkinter as tk
 import tkinter.messagebox
 import game
 import ship_types
+from sys import platform
 
 FONT = ("Calibri", 10)
 
+if platform == "darwin":
+    ICON = "img/battleship.icns"
+elif platform == "win32":
+    ICON = "img/battleship.ico"
 
 # Icon created by: https://www.flaticon.com/free-icons/warship
 
@@ -21,7 +26,7 @@ class GuiApp(tk.Tk):
         tk.Tk.__init__(self)
 
         # Change icon and title
-        tk.Tk.iconbitmap(self, default="img/battleship.ico")  # Using the icon
+        tk.Tk.iconbitmap(self, ICON)  # Using the icon
         tk.Tk.title(self, "BATTLESHIP GAME!!")
 
         # This command will be run all over the frames. It allows the creation of different types of pop-ups
