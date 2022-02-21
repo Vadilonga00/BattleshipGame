@@ -14,6 +14,7 @@ elif platform == "win32":
 
 # Icon created by: https://www.flaticon.com/free-icons/warship
 
+
 class GuiApp(tk.Tk):
     """
         This is the base application class. Uses Tkinter to execute a GUI for the game. Its role is to create, start,
@@ -75,15 +76,15 @@ class Player1Page(tk.Frame):
         for i in range(1, args.rows + 1):
             for j in range(1, args.columns + 1):
                 text = f'({i} - {j})'
-                L = tk.Label(self, text=text, bg='grey', font=FONT)
-                L.grid(row=i, column=j)
+                l = tk.Label(self, text=text, bg='grey', font=FONT)
+                l.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
-                        L.bind('<Button-1>', lambda e, row_guess=i, col_guess=j:
+                        l.bind('<Button-1>', lambda e, row_guess=i, col_guess=j:
                                on_hit(board, args.option, ships, row_guess, col_guess, e, controller, 1))
                         break
                     else:
-                        L.bind('<Button-1>',lambda e, row_guess=i, col_guess=j:
+                        l.bind('<Button-1>', lambda e, row_guess=i, col_guess=j:
                                on_miss(board, row_guess, col_guess, e, controller, 1))
 
 
@@ -99,16 +100,16 @@ class Player2Page(tk.Frame):
         for i in range(1, args.rows + 1):
             for j in range(1, args.columns + 1):
                 text = f'({i} - {j})'
-                L = tk.Label(self, text=text, bg='grey', font=FONT)
-                L.grid(row=i, column=j)
+                l = tk.Label(self, text=text, bg='grey', font=FONT)
+                l.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
-                        L.bind('<Button-1>',
+                        l.bind('<Button-1>',
                                lambda e, row_guess=i, col_guess=j: on_hit(board, args.option, ships, row_guess,
                                                                           col_guess, e, controller, 2))
                         break
                     else:
-                        L.bind('<Button-1>',
+                        l.bind('<Button-1>',
                                lambda e, row_guess=i, col_guess=j: on_miss(board, row_guess, col_guess, e, controller,
                                                                            2))
 

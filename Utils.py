@@ -73,6 +73,7 @@ def choose_and_check_strike_point(args, play_board):
             print("\u001b[31mInvalid input, please try again!\033[0m")
     return row_guess, col_guess
 
+
 def user_message(i):
     if i == 5:
         print(f'\nGive me the coordinates and orientation of the carrier that is 5 squares long!')
