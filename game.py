@@ -50,7 +50,7 @@ def start_game(ship_list1, ship_list2, args, play_board1, play_board2):
     :param play_board2: Player 2's game board
     :return: None
     """
-    print("\n\n\nPlayer 1 will start the game!")
+    print("\n\n\n\n\n\nPlayer 1 will start the game!")
     hit, game_end, player = player_shoot(ship_list2, args, play_board2, 1, game_end=False)
     while not game_end:
         hit, game_end, player = switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_board2, game_end)

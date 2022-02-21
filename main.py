@@ -6,7 +6,6 @@ import inputs
 import game
 import Utils
 
-
 args = inputs.initialize_parser()
 
 type_list = Utils.create_ship_type_list(args)
@@ -21,8 +20,3 @@ else:
     play_board1 = [['-'] * args.columns for x in range(args.rows)]
     play_board2 = [['-'] * args.columns for x in range(args.rows)]
     game.start_game(ship_list1, ship_list2, args, play_board1, play_board2)
-
-
-
-
-

@@ -13,6 +13,7 @@ def create_board(args, type_list):
     board = [[0] * args.columns for x in range(args.rows)]
     ship_list = []
     for i in type_list:
+        Utils.user_message(i)
         successful_insertion = False
 
         while not successful_insertion:

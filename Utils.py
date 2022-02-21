@@ -1,6 +1,3 @@
-# This file contains a collection of utilities methods for the other files and classes
-
-
 def check_orientation(orientation):
     """
          check if the orientation of the ship in the board is valid
@@ -75,3 +72,13 @@ def choose_and_check_strike_point(args, play_board):
         except ValueError:
             print("\u001b[31mInvalid input, please try again!\033[0m")
     return row_guess, col_guess
+
+def user_message(i):
+    if i == 5:
+        print(f'\nGive me the coordinates and orientation of the carrier that is 5 squares long!')
+    elif i == 4:
+        print(f'\nGive me the coordinates and orientation of the battleship that is 4 squares long!')
+    elif i == 3:
+        print(f'\nGive me the coordinates and orientation of the submarine that is 3 squares long!')
+    elif i == 2:
+        print(f'\nGive me the coordinates and orientation of the destroyer that is 2 squares long!')
