@@ -1,5 +1,4 @@
 # This file contains a collection of utilities methods for the other files and classes
-import game
 
 
 def check_orientation(orientation):
@@ -62,16 +61,17 @@ def choose_and_check_strike_point(args, play_board):
     :param play_board:the game board
     :return: hit row and column
     """
-    while True:
+    error = True
+    while error:
         try:
             row_guess = int(input("guess_row:\n"))
             col_guess = int(input("guess_column:\n"))
             if not (check_start_point(args, row_guess, col_guess)):
-                print("The point is not inside the board, try again!")
+                print("\u001b[31mThe point is not inside the board, try again!\033[0m")
             elif not (play_board[row_guess - 1][col_guess - 1] == '-'):
-                print("You’ve already hit this point, try again!")
+                print("\u001b[31mYou’ve already hit this point, try again!\033[0m")
             else:
-                break
+                error = False
         except ValueError:
-            print("Invalid input, please try again!")
+            print("\u001b[31mInvalid input, please try again!\033[0m")
     return row_guess, col_guess

@@ -17,7 +17,7 @@ def initialize_parser():
     parser.add_argument("-s1", "--carriers",
                         help="The number of Carriers of your fleet. The size of a Carrier is 5",
                         type=int,
-                        default=3)
+                        default=1)
 
     parser.add_argument("-s2", "--battleships",
                         help="The number of Battleships of your fleet. The size of a Battleship is 4",
@@ -42,7 +42,7 @@ def initialize_parser():
     parser.add_argument("-g", "--graphics",
                         help="If you want to play with graphical interface use 1. If not use 0 or don't call this parameter",
                         type=int,
-                        default=1)
+                        default=0)
 
 
     return parser.parse_args()
