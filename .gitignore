@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 pycache/
+test_ship_battle.py
 .idea
 *.py[cod]
 *$py.class
