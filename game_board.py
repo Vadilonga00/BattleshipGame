@@ -81,35 +81,35 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                 if not, and the coordinate of the ship (None if there is an error)
                 """
     error = False
-    if start_col + size - 1 <= args.columns:
+    if start_col + size - 1 <= args.columns:#Check that the ship is on the board
         i = start_col - 1
         while i < start_col + size - 1 and not error:
-            if board[start_row - 1][i] == 1:
+            if board[start_row - 1][i] == 1:#Check that i do not position over another ship
                 warnings.warn("Error! There is already another ship here")
                 error = True
                 continue
             if start_row == 1:
-                if board[start_row][i] == 1:
+                if board[start_row][i] == 1:#if i'm on the first row, check not to have an adjacent ship in the second row
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
-            if start_row == args.rows:
+            if start_row == args.rows:#if I am on the last line, check not to have an adjacent ship in the penultimate line
                 if board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
-            if start_row > 1 and start_row < args.rows:
+            if start_row > 1 and start_row < args.rows:#control of not having an adjacent ship in the upper and lower row
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_col != 1:
-                if board[start_row - 1][start_col - 2] == 1:
+                if board[start_row - 1][start_col - 2] == 1:#control of not having an adjacent ship on the left
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
             if start_col + size - 2 != args.columns - 1:
-                if board[start_row - 1][start_col + size - 1] == 1:
+                if board[start_row - 1][start_col + size - 1] == 1:#check not to have an adjacent ship on the right
                     warnings.warn("Error! You are adjacent to another ship")
                     error = True
                     continue
