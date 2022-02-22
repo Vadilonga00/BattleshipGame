@@ -22,7 +22,7 @@ To configure your own playing field, which consists of a matrix within the which
 - systematic alternation (one shot each)
 - in the event of a hit, the player is entitled to another hit.
 
-The size of the playing field, the number of vessels of each type and the mode of alternation are parameters by which the application must be initially configured and are the same for both players (refer to ##To execute).
+The size of the playing board, the number of ships of each type and the mode of alternation are parameters by which the application must be initially configured and are the same for both players (refer to ##To execute).
 
 Each player, according to the alternation of game turns, will be asked to communicate the coordinates of his shot and the application will provide the result: missed / hit / sunk, until the end of the game and the proclamation of the winner when all of a player's ships are been sunk.
 
