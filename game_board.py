@@ -2,7 +2,7 @@ import ship_types
 import Utils
 
 
-def create_board(args, type_list):
+def create_board(rows, cols, type_list):
     """
         create the board of the game with each ship
         :param args: the inputs given by the user
@@ -10,7 +10,7 @@ def create_board(args, type_list):
         :return: a game board and a list of each ship with its length,
         orientation, start row, start colum and coordinates
         """
-    board = [[0] * args.columns for x in range(args.rows)]
+    board = [[0] * cols for x in range(rows)]
     ship_list = []
     for i in type_list:
         Utils.user_message(i)
@@ -18,12 +18,12 @@ def create_board(args, type_list):
 
         while not successful_insertion:
             try:
-                start_row = int(input(f'\nInsert row. An integer from 1 to {args.rows}: '))
-                start_col = int(input(f'\nInsert column. An integer from 1 to {args.columns}: '))
+                start_row = int(input(f'\nInsert row. An integer from 1 to {rows}: '))
+                start_col = int(input(f'\nInsert column. An integer from 1 to {cols}: '))
             except ValueError:
                 print(f'\u001b[31m\nInvalid row and/or column, please try again!\033[0m')
                 continue
-            if not Utils.check_start_point(args, start_row, start_col):
+            if not Utils.check_start_point(rows, cols, start_row, start_col):
                 print('\u001b[31m\nError! The given starting point is not valid. Try again\033[0m')
                 continue
 
@@ -35,14 +35,14 @@ def create_board(args, type_list):
                 continue
 
             if orientation == 'horizontal':
-                error, coordinates = check_horizontal_ship_positioning(args, board, start_row, start_col, i)
+                error, coordinates = check_horizontal_ship_positioning(rows, cols, board, start_row, start_col, i)
                 if not error:
                     successful_insertion = True
             else:
-                error, coordinates = check_vertical_ship_positioning(args, board, start_row, start_col, i)
+                error, coordinates = check_vertical_ship_positioning(rows, cols, board, start_row, start_col, i)
                 if not error:
                     successful_insertion = True
-            print_board(board, args)
+            print_board(board, rows, cols)
 
         if i == 5:
             ship = ship_types.Carrier(orientation, start_row, start_col, coordinates)
@@ -56,20 +56,20 @@ def create_board(args, type_list):
     return board, ship_list
 
 
-def print_board(game_board, args):
+def print_board(game_board, rows, cols):
     """
     print a game board with inputs parameters
    :param game_board: the game board
    :param args: the inputs given by the user
    :return: the graphics of the board in the current state
     """
-    print("\n  " + " ".join(str(x) for x in range(1, args.columns + 1)))
-    for r in range(args.rows):
+    print("\n  " + " ".join(str(x) for x in range(1, cols + 1)))
+    for r in range(rows):
         print(str(r + 1) + " " + " ".join(str(c) for c in game_board[r]))
     print()
 
 
-def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
+def check_horizontal_ship_positioning(rows, cols, board, start_row, start_col, size):
     """
                 check the horizontal position of the ship in the board
                 and return a message of warning if the position in not valid
@@ -82,7 +82,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                 if not, and the coordinate of the ship (None if there is an error)
                 """
     error = False
-    if start_col + size - 1 <= args.columns:  # Check that the ship is on the board
+    if start_col + size - 1 <= cols:  # Check that the ship is on the board
         i = start_col - 1
         while i < start_col + size - 1 and not error:
             if board[start_row - 1][i] == 1:  # Check that i do not position over another ship
@@ -95,13 +95,13 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if start_row == args.rows:  # If I am on the last row, check not to have an adjacent ship in the
+            if start_row == rows:  # If I am on the last row, check not to have an adjacent ship in the
                 # penultimate row
                 if board[start_row - 2][i] == 1:
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if 1 < start_row < args.rows:  # Check not to have an adjacent ship in the upper and lower row
+            if 1 < start_row < rows:  # Check not to have an adjacent ship in the upper and lower row
                 if board[start_row][i] == 1 or board[start_row - 2][i] == 1:
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
@@ -111,7 +111,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if start_col + size - 2 != args.columns - 1:
+            if start_col + size - 2 != cols - 1:
                 if board[start_row - 1][start_col + size - 1] == 1:  # Check not to have an adjacent ship on the right
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
@@ -129,7 +129,7 @@ def check_horizontal_ship_positioning(args, board, start_row, start_col, size):
     return error, None
 
 
-def check_vertical_ship_positioning(args, board, start_row, start_col, size):
+def check_vertical_ship_positioning(rows, cols, board, start_row, start_col, size):
     """
             check the vertical position of the ship in the board
             and return a message of warning if the position in not valid
@@ -142,7 +142,7 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
             if not, and the coordinate of the ship (None if there is an error)
             """
     error = False
-    if start_row + size - 1 <= args.rows:  # Check that the ship is on the board
+    if start_row + size - 1 <= rows:  # Check that the ship is on the board
         i = start_row - 1
         while i < start_row + size - 1 and not error:
             if board[i][start_col - 1] == 1:  # Check that i do not position over another ship
@@ -155,13 +155,13 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if start_col == args.columns:
+            if start_col == cols:
                 if board[i][start_col - 2] == 1:  # If I am on the last column, check not to have an adjacent
                     # ship in the penultimate column
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if 1 < start_col < args.columns:  # Check not to have an adjacent ship in the left and
+            if 1 < start_col < cols:  # Check not to have an adjacent ship in the left and
                 # right column
                 if board[i][start_col] == 1 or board[i][start_col - 2] == 1:
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
@@ -172,7 +172,7 @@ def check_vertical_ship_positioning(args, board, start_row, start_col, size):
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True
                     continue
-            if start_row + size - 2 != args.rows - 1:
+            if start_row + size - 2 != rows - 1:
                 if board[start_row + size - 1][start_col - 1] == 1:  # Check not to have an adjacent ship below
                     print("\u001b[31m\n\nError! You are adjacent to another ship\033[0m")
                     error = True

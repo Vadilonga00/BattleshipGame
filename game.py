@@ -4,7 +4,7 @@ import game_board
 import Utils
 
 
-def player_shoot(ship_list, args, play_board, player, game_end):
+def player_shoot(ship_list, rows, cols, play_board, player, game_end):
     """
          This method asks the player for the desired row or column for his shot
          then it checks if the shot is a hit, miss, sunks a ship or wins him the game
@@ -20,8 +20,8 @@ def player_shoot(ship_list, args, play_board, player, game_end):
             this game it can be either 1 or 2
          """
     hit = False
-    game_board.print_board(play_board, args)
-    row_guess, col_guess = Utils.choose_and_check_strike_point(args, play_board)
+    game_board.print_board(play_board, rows, cols)
+    row_guess, col_guess = Utils.choose_and_check_strike_point(rows, cols, play_board)
     for i in ship_list:
         if ship_types.Ship.is_hit(i, row_guess, col_guess):
             hit = True
@@ -40,7 +40,7 @@ def player_shoot(ship_list, args, play_board, player, game_end):
     return hit, game_end, player
 
 
-def start_game(ship_list1, ship_list2, args, play_board1, play_board2):
+def start_game(ship_list1, ship_list2, rows, cols, option, play_board1, play_board2):
     """
     This function starts the game in a Console mode and terminates the program as soon as the game ends
     :param ship_list1: Player 1's Ship list
@@ -51,13 +51,13 @@ def start_game(ship_list1, ship_list2, args, play_board1, play_board2):
     :return: None
     """
     print("\n\n\n\n\n\nPlayer 1 will start the game!")
-    hit, game_end, player = player_shoot(ship_list2, args, play_board2, 1, game_end=False)
+    hit, game_end, player = player_shoot(ship_list2, rows, cols, play_board2, 1, game_end=False)
     while not game_end:
-        hit, game_end, player = switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_board2, game_end)
+        hit, game_end, player = switch_player(hit, player, ship_list1, ship_list2, rows, cols, option, play_board1, play_board2, game_end)
     sys.exit()
 
 
-def switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_board2, game_end):
+def switch_player(hit, player, ship_list1, ship_list2, rows, cols, option, play_board1, play_board2, game_end):
     """
     This function decides when to switch player turn depending on:
         1) If it's a hit or a miss
@@ -75,21 +75,21 @@ def switch_player(hit, player, ship_list1, ship_list2, args, play_board1, play_b
     :return: player: The same or the other player depending on the result of the function
     """
     if player == 1:
-        if hit and args.option == 0:
+        if hit and option == 0:
             print('\nYou can shoot again!')
-            hit, game_end, player = player_shoot(ship_list2, args, play_board2, player, game_end)
+            hit, game_end, player = player_shoot(ship_list2, rows, cols, play_board2, player, game_end)
         else:
             player = 2
             print(f'\nPass the computer to Player {player}')
-            hit, game_end, player = player_shoot(ship_list1, args, play_board1, player, game_end)
+            hit, game_end, player = player_shoot(ship_list1, rows, cols, play_board1, player, game_end)
     else:
-        if hit and args.option == 0:
+        if hit and option == 0:
             print('\nYou can shoot again!')
-            hit, game_end, player = player_shoot(ship_list1, args, play_board1, player, game_end)
+            hit, game_end, player = player_shoot(ship_list1, rows, cols, play_board1, player, game_end)
         else:
             player = 1
             print(f'\nPass the computer to Player {player}')
-            hit, game_end, player = player_shoot(ship_list2, args, play_board2, player, game_end)
+            hit, game_end, player = player_shoot(ship_list2, rows, cols, play_board2, player, game_end)
     return hit, game_end, player
 
 
