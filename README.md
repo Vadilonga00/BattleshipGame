@@ -1,6 +1,6 @@
 
 # SHIP BATTLE
-Program that implements the game of the sea battle in the user vs user version
+Program that implements the game of the sea battle in the user vs user version. Project for the programming exam at Università Campus Bio-Medico di Roma.
 
 
 # Index
@@ -21,7 +21,7 @@ To execute the script you can:
     In this way you will play with a 6x6 board.
     
     
--Choose the number of each type of ship to play with. If not indicated it shall be equal to one for each type of vessel
+-Choose the number of each type of ship to play with. If not indicated it shall be equal to one for each type of ship
 
 
     Example of execution commands: python3 main.py -s1 1 -s2 2 -s3 3 -s4 4
