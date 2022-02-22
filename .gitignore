@@ -1,6 +1,5 @@
 # Byte-compiled / optimized / DLL files
 pycache/
-Test/*
 .idea
 *.py[cod]
 *$py.class
