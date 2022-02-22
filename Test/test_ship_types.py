@@ -1,5 +1,5 @@
 import unittest
-import ship_types
+from BattleshipGame import ship_types
 
 
 class TestShipTypes(unittest.TestCase):

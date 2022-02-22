@@ -17,7 +17,7 @@ input('\n\nPress enter and pass the computer to the other player to start playin
 print("\n"*30)
 
 if args.graphics == 1:
-    app = gui.GuiApp(args, ship_list1, ship_list2, board_player1, board_player2)
+    app = gui.GuiApp(args.rows, args.columns, args.option, ship_list1, ship_list2, board_player1, board_player2)
     app.mainloop()
 else:
     play_board1 = [['-'] * args.columns for x in range(args.rows)]

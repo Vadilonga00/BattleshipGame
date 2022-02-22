@@ -3,12 +3,13 @@
 
 # Base Ship class from which every other sub-Ship-class will inherit
 class Ship:
-    """The constructor which receives:
-         :param size: The length of the ship
-         :param orientation: The direction of the ship (horizontal or vertical)
-         :param start-row/start-col: The starting point of the ship for the positioning
-         :param coordinates: A list of the occupied coordinates by the ship
-         """
+    """
+    The constructor which receives:
+    :param size: The length of the ship
+    :param orientation: The direction of the ship (horizontal or vertical)
+    :param start-row/start-col: The starting point of the ship for the positioning
+    :param coordinates: A list of the occupied coordinates by the ship
+    """
 
     def __init__(self, size, orientation, start_row, start_col, coordinates=None):
         self.size = size
@@ -59,7 +60,7 @@ class Ship:
         return False
 
 
-# All the subclasses need only a default size
+# All the subclasses need only a default size, all the other attributes can be inherited for the super_class Ship
 class Carrier(Ship):
     def __init__(self, orientation, start_row, start_col, coordinates):
         super().__init__(5, orientation, start_row, start_col, coordinates)

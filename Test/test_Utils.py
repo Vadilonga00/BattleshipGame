@@ -1,8 +1,6 @@
 import unittest
-from Utils import check_orientation
-from Utils import check_start_point
-from Utils import create_ship_type_list
-from Utils import choose_and_check_strike_point
+
+from BattleshipGame.Utils import check_orientation, check_start_point, create_ship_type_list
 
 
 class TestUtils(unittest.TestCase):

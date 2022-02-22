@@ -1,9 +1,10 @@
 def check_orientation(orientation):
     """
-         check if the orientation of the ship in the board is valid
-         :return: a logical parameter that is true if the orientation
+    Check if the orientation of the ship in the board is valid
+    :param: orientation: The input orientation given by the user
+    :return: a logical parameter that is true if the orientation
          is valid and false if not
-         """
+    """
     if orientation == 'horizontal' or orientation == 'vertical':
         return True
     else:
@@ -12,7 +13,9 @@ def check_orientation(orientation):
 
 def check_start_point(rows, cols, start_row, start_col):
     """
-     check the starting point of the ship is valid
+     Check the starting point of the ship is valid
+     :param rows: The input given by the user for the number of rows of the board
+     :param cols: The input given by the user for the number of columns of the board
      :param start_row: the start point of the row
      :param start_col: the start point of the colum
      :return: a logical parameter that is true if the start row and start colum are
@@ -26,10 +29,13 @@ def check_start_point(rows, cols, start_row, start_col):
 
 def create_ship_type_list(carriers, battleships, submarines, destroyers):
     """
-         create a list of ships types checking the inputs parameters
-         :param args: the desired number of each ship type
-         :return: a list that contains an element for each ship based on his size
-         """
+    Create a list of ships types checking the inputs parameters
+    :param carriers: The input given by the user for the number of carriers
+    :param battleships: The input given by the user for the number of battleships
+    :param submarines: The input given by the user for the number of submarines
+    :param destroyers: The input given by the user for the number of destroyers
+    :return: a list that contains an element for each ship based on his size
+    """
     type_list = []
     counter = 0
     while counter < carriers:
@@ -53,8 +59,9 @@ def create_ship_type_list(carriers, battleships, submarines, destroyers):
 
 def choose_and_check_strike_point(rows, cols, play_board):
     """
-    asks for a point to hit and checks the validity of the coordinates entered
-    :param args: The inputs given by the user
+    Asks for a point to hit and checks the validity of the coordinates entered
+    :param rows: The input given by the user for the number of rows of the board
+    :param cols: The input given by the user for the number of columns of the board
     :param play_board:the game board
     :return: hit row and column
     """
@@ -75,6 +82,11 @@ def choose_and_check_strike_point(rows, cols, play_board):
 
 
 def user_message(i):
+    """
+    This method is used to print a message during ship positioning
+    :param i: An integer that represents the size of the ship to be positioned
+    :return: None
+    """
     if i == 5:
         print(f'\nGive me the coordinates and orientation of the carrier that is 5 squares long!')
     elif i == 4:

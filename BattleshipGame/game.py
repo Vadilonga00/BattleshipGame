@@ -9,7 +9,8 @@ def player_shoot(ship_list, rows, cols, play_board, player, game_end):
          This method asks the player for the desired row or column for his shot
          then it checks if the shot is a hit, miss, sunks a ship or wins him the game
          :param ship_list: The player's ship list
-         :param args: The inputs given by the user
+         :param rows: The input given by the user for the number of rows of the board
+         :param cols: The input given by the user for the number of columns of the board
          :param play_board: The player's game board
          :param player: The player shooting
          :param game_end: True if the game is finished, False otherwise
@@ -45,7 +46,9 @@ def start_game(ship_list1, ship_list2, rows, cols, option, play_board1, play_boa
     This function starts the game in a Console mode and terminates the program as soon as the game ends
     :param ship_list1: Player 1's Ship list
     :param ship_list2: Player 2's Ship list
-    :param args: The inputs given to the program by the user
+    :param rows: The input given by the user for the number of rows of the board
+    :param cols: The input given by the user for the number of columns of the board
+    :param option: The input given by the user for the game option
     :param play_board1: Player 1's game board
     :param play_board2: Player 2's game board
     :return: None
@@ -66,7 +69,9 @@ def switch_player(hit, player, ship_list1, ship_list2, rows, cols, option, play_
     :param player: The player who shot last turn
     :param ship_list1: Player 1's Ship list
     :param ship_list2: Player 2's Ship list
-    :param args: The inputs given to the program by the user
+    :param rows: The input given by the user for the number of rows of the board
+    :param cols: The input given by the user for the number of columns of the board
+    :param option: The input given by the user for the game option
     :param play_board1: Player 1's game board
     :param play_board2: Player 2's game board
     :param game_end: True if the game is finished, False otherwise

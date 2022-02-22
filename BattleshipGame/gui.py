@@ -21,7 +21,7 @@ class GuiApp(tk.Tk):
         and run the 2 Frames (one for each player) needed for the GUI implementation of the game. All it's done in
         the __init__ method.
     """
-    def __init__(self, args, ships1, ships2, board1, board2):
+    def __init__(self, rows, cols, option, ships1, ships2, board1, board2):
 
         # Initialize the Tkinter GUI
         tk.Tk.__init__(self)
@@ -43,9 +43,9 @@ class GuiApp(tk.Tk):
         self.frames = {}
         for F in (Player1Page, Player2Page):
             if F is Player1Page:
-                frame = F(container, self, args, ships2, board2)
+                frame = F(container, self, rows, cols, option, ships2, board2)
             else:
-                frame = F(container, self, args, ships1, board1)
+                frame = F(container, self, rows, cols, option, ships1, board1)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
@@ -66,22 +66,22 @@ class Player1Page(tk.Frame):
     """
         This class represents player1's Frame. As we are using Tkinter, inherit from the Tkinter Frame module.
     """
-    def __init__(self, parent, controller, args, ships, board):
+    def __init__(self, parent, controller, rows, cols, option, ships, board):
         # Initialize the frame
         tk.Frame.__init__(self, parent)
 
         # Create a grid of labels for every row and column of the board, set text to the label and bind a button
         # depending on which coordinates of the grid are occupied by a ship. If there is a ship, the bound button,
         # upon click, will trigger a method (on_hit), if not, another method will be triggered instead (on_miss)
-        for i in range(1, args.rows + 1):
-            for j in range(1, args.columns + 1):
+        for i in range(1, rows + 1):
+            for j in range(1, cols + 1):
                 text = f'({i} - {j})'
                 l = tk.Label(self, text=text, bg='grey', font=FONT)
                 l.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
                         l.bind('<Button-1>', lambda e, row_guess=i, col_guess=j:
-                               on_hit(board, args.option, ships, row_guess, col_guess, e, controller, 1))
+                               on_hit(board, option, ships, row_guess, col_guess, e, controller, 1))
                         break
                     else:
                         l.bind('<Button-1>', lambda e, row_guess=i, col_guess=j:
@@ -92,20 +92,20 @@ class Player2Page(tk.Frame):
     """
         This class represents player2's Frame. As we are using Tkinter, inherit from the Tkinter Frame module.
     """
-    def __init__(self, parent, controller, args, ships, board):
+    def __init__(self, parent, controller, rows, cols, option, ships, board):
         # Initialize the frame
         tk.Frame.__init__(self, parent)
 
         # TODO: try to create a method
-        for i in range(1, args.rows + 1):
-            for j in range(1, args.columns + 1):
+        for i in range(1, rows + 1):
+            for j in range(1, cols + 1):
                 text = f'({i} - {j})'
                 l = tk.Label(self, text=text, bg='grey', font=FONT)
                 l.grid(row=i, column=j)
                 for ship in ships:
                     if ship_types.Ship.check_hit(ship, i, j):
                         l.bind('<Button-1>',
-                               lambda e, row_guess=i, col_guess=j: on_hit(board, args.option, ships, row_guess,
+                               lambda e, row_guess=i, col_guess=j: on_hit(board, option, ships, row_guess,
                                                                           col_guess, e, controller, 2))
                         break
                     else:
