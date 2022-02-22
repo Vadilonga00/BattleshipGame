@@ -1,5 +1,8 @@
 import unittest
 from Utils import check_orientation
+from Utils import check_start_point
+from Utils import create_ship_type_list
+from Utils import choose_and_check_strike_point
 
 
 class TestUtils(unittest.TestCase):
@@ -24,6 +27,34 @@ class TestUtils(unittest.TestCase):
         actual = check_orientation(orientation='!"£$%&/()=')
         expected: bool = False
         self.assertEqual(actual, expected)
+
+    def test_if_check_start_point_return_true_if_start_col_and_start_row_is_in_range(self):
+        self.assertEqual(True, check_start_point(9, 9, 1, 1))
+        self.assertEqual(True, check_start_point(9, 9, 2, 3))
+        self.assertEqual(True, check_start_point(9, 9, 8, 9))
+        self.assertEqual(True, check_start_point(9, 9, 2, 7))
+        self.assertEqual(True, check_start_point(9, 9, 3, 3))
+
+    def test_if_check_start_point_return_false_if_start_col_and_start_row_is_not_in_range(self):
+        self.assertEqual(False, check_start_point(9, 9, 12, 13))
+        self.assertEqual(False, check_start_point(9, 9, 20, 20))
+        self.assertEqual(False, check_start_point(9, 9, 17, 30))
+        self.assertEqual(False, check_start_point(9, 9, 10, 13))
+        self.assertEqual(False, check_start_point(9, 9, 12, 13))
+
+    def test_if_check_start_point_return_false_if_start_col_or_start_row_is_not_in_range(self):
+        self.assertEqual(False, check_start_point(9, 9, 1, 13))
+        self.assertEqual(False, check_start_point(9, 9, 18, 5))
+
+    def setUp(self):
+        self.carriers = 2
+        self.battleships = 1
+        self.submarines = 1
+        self.destroyers = 2
+
+    def test_if_create_ship_type_list_increment_type_list(self):
+        self.assertEqual(6,
+                         len(create_ship_type_list(self.carriers, self.battleships, self.submarines, self.destroyers)))
 
 
 if __name__ == '__main__':

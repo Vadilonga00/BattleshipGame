@@ -48,6 +48,6 @@ def initialize_parser():
                         help="If you want to play with graphical interface use 1. If not use 0 or don't call this "
                              "parameter",
                         type=int,
-                        default=0)
+                        default=1)
 
     return parser.parse_args()
