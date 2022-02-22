@@ -9,10 +9,25 @@ Program that implements the game of the sea battle in the user vs user version. 
 
 # How to get started
 
+## Game guide
+
+The program allows two players to play the "naval battle" according to the usual rules.
+
+To configure your own playing field, which consists of a matrix within the which to place a predetermined number of ships of different lengths, the following rules apply:
+- the length of the ship corresponds to a number integer of squares of the matrix
+- each ship can be arranged horizontally or vertically, entirely within the playing board
+- two ships cannot be adjacent, it must always be there at least one square away from one ship to any other.
+ 
+ The game has two modes of alternation of the turn of game between players:
+- systematic alternation (one shot each)
+- in the event of a hit, the player is entitled to another hit.
+
+The size of the playing field, the number of vessels of each type and the mode of alternation are parameters by which the application must be initially configured and are the same for both players (refer to ##To execute).
+
 ## To execute
 To execute the script you can:
 
--Insert the rows and columns fields that indicate the number of rows and columns the board has. If not indicated they are equal to 9
+-Insert the rows(-r) and columns(-c) fields that indicate the number of rows and columns the board has. If not indicated they are equal to 9
    
    
     Example of execution commands: python3 main.py -r 6 -c 6
@@ -27,7 +42,7 @@ To execute the script you can:
     Example of execution commands: python3 main.py -s1 1 -s2 2 -s3 3 -s4 4
     
     
-    In this way you will play with 1 carrier 2 battleships 3 submarines 4 destroyers
+    In this way you will play with 1 carrier(-s1) 2 battleships(-s2) 3 submarines(-s3) 4 destroyers(-s4)
     
     
 -Choose the game variant you want to play: 0 if after hitting is my turn again, 1 otherwise. if not indicated you will play with the variant 0
