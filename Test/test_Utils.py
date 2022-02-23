@@ -51,8 +51,7 @@ class TestUtils(unittest.TestCase):
         self.destroyers = 2
 
     def test_if_create_ship_type_list_increment_type_list(self):
-        self.assertEqual(6,
-                         len(create_ship_type_list(self.carriers, self.battleships, self.submarines, self.destroyers)))
+        self.assertEqual(6, len(create_ship_type_list(self.carriers, self.battleships, self.submarines, self.destroyers)))
 
 
 if __name__ == '__main__':
