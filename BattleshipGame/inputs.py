@@ -19,7 +19,7 @@ def initialize_parser():
                         help="The number of Carriers of your fleet, if not specified, equal to 1. The size of a "
                              "Carrier is 5.",
                         type=int,
-                        default=0)
+                        default=2)
 
     parser.add_argument("-s2", "--battleships",
                         help="The number of Battleships of your fleet, if not specified, equal to 1. The size of a "
