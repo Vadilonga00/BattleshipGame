@@ -1,3 +1,4 @@
+import sys
 import ship_types
 import Utils
 
@@ -10,11 +11,12 @@ def create_board(rows, cols, type_list):
     :param type_list: a list that contains the numbers of ships for each type
     :return: a game board and a list of each ship with its length, orientation, start row, start colum and coordinates
     """
-    board = [[0] * cols for x in range(rows)]
+    board = [[0] * cols for r in range(rows)]
     ship_list = []
     for i in type_list:
         Utils.user_message(i)
         successful_insertion = False
+        trials = 0
 
         while not successful_insertion:
             try:
@@ -43,6 +45,13 @@ def create_board(rows, cols, type_list):
                 if not error:
                     successful_insertion = True
             print_board(board, rows, cols)
+            if not successful_insertion:
+                trials += 1
+                if trials > 3:
+                    print("\n"*30)
+                    print("\u001b[31mToo many tries. Restart the game. Try using less ships or a bigger "
+                          "field\033[0m")
+                    sys.exit()
 
         if i == 5:
             ship = ship_types.Carrier(orientation, start_row, start_col, coordinates)
@@ -72,8 +81,9 @@ def print_board(game_board, rows, cols):
 
 def check_horizontal_ship_positioning(rows, cols, board, start_row, start_col, size):
     """
-    Check the horizontal position of the ship in the board
-    and return a message of warning if the position in not valid
+    Check the horizontal position of the ship in the board and return a message of warning if the position
+    in not valid. If a player fails too many times to position a ship (reasons could be for example: too many
+    ships requested for a little field)
     :param rows: The input given by the user for the number of rows of the board
     :param cols: The input given by the user for the number of columns of the board
     :param board: the game board
