@@ -19,19 +19,19 @@ def initialize_parser():
                         help="The number of Carriers of your fleet, if not specified, equal to 1. The size of a "
                              "Carrier is 5.",
                         type=int,
-                        default=2)
+                        default=1)
 
     parser.add_argument("-s2", "--battleships",
                         help="The number of Battleships of your fleet, if not specified, equal to 1. The size of a "
                              "Battleship is 4",
                         type=int,
-                        default=0)
+                        default=1)
 
     parser.add_argument("-s3", "--submarines",
                         help="The number of Submarines of your fleet, if not specified, equal to 1. The size of a "
                              "Submarine is 3",
                         type=int,
-                        default=0)
+                        default=1)
 
     parser.add_argument("-s4", "--destroyers",
                         help="The number of Destroyers of your fleet, if not specified, equal to 1. The size of a "
@@ -49,7 +49,7 @@ def initialize_parser():
                         help="If you want to play with graphical interface use 1. If not use 0 or don't call this "
                              "parameter",
                         type=int,
-                        default=1)
+                        default=0)
 
     return parser.parse_args()
 
@@ -68,16 +68,16 @@ def check_arguments(args):
     if not 0 < args.columns < 100:
         print('\u001b[31mInvalid number of columns\033[0m')
         raise ValueError
-    if not 0 <= args.carriers < 2:
+    if not 0 <= args.carriers <= 2:
         print('\u001b[31mInvalid number of carriers\033[0m')
         raise ValueError
-    if not 0 <= args.battleships < 3:
+    if not 0 <= args.battleships <= 3:
         print('\u001b[31mInvalid number of battleships\033[0m')
         raise ValueError
-    if not 0 <= args.submarines < 4:
+    if not 0 <= args.submarines <= 4:
         print('\u001b[31mInvalid number of submarines\033[0m')
         raise ValueError
-    if not 0 <= args.destroyers < 5:
+    if not 0 <= args.destroyers <= 5:
         print('\u001b[31mInvalid number of destroyers\033[0m')
         raise ValueError
     if not (args.option == 0 or args.option == 1):
