@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 
 def initialize_parser():
@@ -51,3 +52,37 @@ def initialize_parser():
                         default=1)
 
     return parser.parse_args()
+
+
+def check_parser(args):
+    try:
+        check_arguments(args)
+    except ValueError:
+        sys.exit()
+
+
+def check_arguments(args):
+    if not 0 < args.rows < 100:
+        print('\u001b[31mInvalid number of rows\033[0m')
+        raise ValueError
+    if not 0 < args.columns < 100:
+        print('\u001b[31mInvalid number of columns\033[0m')
+        raise ValueError
+    if not 0 <= args.carriers < 2:
+        print('\u001b[31mInvalid number of carriers\033[0m')
+        raise ValueError
+    if not 0 <= args.battleships < 3:
+        print('\u001b[31mInvalid number of battleships\033[0m')
+        raise ValueError
+    if not 0 <= args.submarines < 4:
+        print('\u001b[31mInvalid number of submarines\033[0m')
+        raise ValueError
+    if not 0 <= args.destroyers < 5:
+        print('\u001b[31mInvalid number of destroyers\033[0m')
+        raise ValueError
+    if not (args.option == 0 or args.option == 1):
+        print('\u001b[31mInvalid input "option". It must be 0 or 1\033[0m')
+        raise ValueError
+    if not (args.graphics == 0 or args.graphics == 1):
+        print('\u001b[31mInvalid input "graphics". It must be 0 or 1\033[0m')
+        raise ValueError

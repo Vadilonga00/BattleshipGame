@@ -7,6 +7,7 @@ import game
 import Utils
 
 args = inputs.initialize_parser()
+inputs.check_parser(args)
 
 type_list = Utils.create_ship_type_list(args.carriers, args.battleships, args.submarines, args.destroyers)
 board_player1, ship_list1 = game_board.create_board(args.rows, args.columns, type_list)
